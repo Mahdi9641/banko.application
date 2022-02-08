@@ -31,10 +31,6 @@ public class PartyController {
     @PostMapping("/createparty")
     public Party creatParty(@RequestBody Party party){
         log.info("creatParty");
-//        party.setFirstName(P);
-//        party.setLastName();
-//        party.setBirthDate();
-//        party.setNationalNumber();
         partyRepository.save(party);
         return party;
     }
@@ -43,11 +39,11 @@ public class PartyController {
         log.info("updateParty");
         partyRepository.save(party);
         return party;
-    }
+   }
     @DeleteMapping("/deleteParty")
     public Party deleteParty(@RequestBody Party party){
         log.info("deleteParty");
-        partyRepository.deleteById(1L);
+        partyRepository.deleteById(party.getId());
         partyRepository.save(party);
         return party;
     }

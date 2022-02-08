@@ -63,17 +63,17 @@ public class FinancialAccountController {
         return true;
     }
 
-    @PutMapping("/updatefinancialAccount")
-    public FinancialAccount updateFinancialAccount(@RequestBody FinancialAccount financialAccount) {
-        log.info("updatefinancialAccount");
-        financialAccountRepository.save(financialAccount);
-        return financialAccount;
-    }
+//    @PutMapping("/updatefinancialAccount")
+//    public FinancialAccount updateFinancialAccount(@RequestBody FinancialAccount financialAccount) {
+//        log.info("updatefinancialAccount");
+//        financialAccountRepository.save(financialAccount);
+//        return financialAccount;
+//    }
 
     @DeleteMapping("/deletefinancialAccount")
     public FinancialAccount deleteFinancialAccount(@RequestBody FinancialAccount financialAccount) {
         log.info("deletefinancialAccount");
-        financialAccountRepository.deleteById(1L);
+        financialAccountRepository.deleteById(financialAccount.getId());
         financialAccountRepository.save(financialAccount);
         return financialAccount;
     }

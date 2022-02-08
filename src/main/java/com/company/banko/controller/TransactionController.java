@@ -33,10 +33,6 @@ public class TransactionController {
     @PostMapping("/createTransaction")
     public Transaction createTransaction(@RequestBody Transaction transaction){
         log.info("createTransaction");
-        transaction.getTransactionDate(new Date());
-        transaction.getAmount();
-        transaction.getDescription();
-        transaction.getToAccount();
         transactionRepository.save(transaction);
         return transaction;
     }
@@ -49,7 +45,7 @@ public class TransactionController {
     @DeleteMapping("/deleteTransaction")
     public Transaction deleteFinancialAccount(@RequestBody Transaction transaction){
         log.info("deletefinancialAccount");
-        transactionRepository.deleteById(1L);
+        transactionRepository.deleteById(transaction.getId());
         transactionRepository.save(transaction);
         return transaction;
     }

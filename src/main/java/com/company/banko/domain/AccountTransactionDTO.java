@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class AccountTransactionDTO {
 
-   private long accountNumber;
+   private String accountNumber;
 
    private long deposit;
 
    private long amount;
 
 
-   public long getAccountNumber() {
+   public String getAccountNumber() {
       return accountNumber;
    }
 
-   public void setAccountNumber(long accountNumber) {
+   public void setAccountNumber(String accountNumber) {
       this.accountNumber = accountNumber;
    }
 

@@ -16,7 +16,7 @@ public class FinancialAccount {
 
     private String name;
 
-    private long accountNumber;
+    private String accountNumber;
 
     private long balance;
 
@@ -60,11 +60,11 @@ public class FinancialAccount {
         this.receive = receive;
     }
 
-    public long getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(long accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

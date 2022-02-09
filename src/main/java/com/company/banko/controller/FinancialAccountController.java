@@ -71,11 +71,9 @@ public class FinancialAccountController {
 //        return financialAccount;
 //    }
 
-    @DeleteMapping("/deletefinancialAccount")
-    public FinancialAccount deleteFinancialAccount(@RequestBody FinancialAccount financialAccount) {
+    @DeleteMapping("/deletefinancialAccount/{accountNumber}")
+    public void deleteFinancialAccount(@PathVariable String accountNumber) {
         log.info("deletefinancialAccount");
-        financialAccountRepository.deleteFinancialAccountByAccountNumber(financialAccount.getAccountNumber());
-        financialAccountRepository.save(financialAccount);
-        return financialAccount;
+       financialAccountRepository.deleteFinancialAccountByAccountNumber(accountNumber);
     }
 }

@@ -16,7 +16,7 @@ public class AccountPartyDTO {
 
     private long balance;
 
-    private long accountNumber;
+    private String accountNumber;
 
     private Date creationDate;
 
@@ -44,11 +44,11 @@ public class AccountPartyDTO {
         this.nationalNumber = nationalNumber;
     }
 
-    public long getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(long accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

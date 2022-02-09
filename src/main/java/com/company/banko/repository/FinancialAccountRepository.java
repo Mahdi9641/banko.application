@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FinancialAccountRepository extends JpaRepository<FinancialAccount, Long> {
 
-    FinancialAccount findByAccountNumber(long accountNumber);
-    FinancialAccount deleteFinancialAccountByAccountNumber(long accountNumber);
+    FinancialAccount findByAccountNumber(String accountNumber);
+    FinancialAccount deleteFinancialAccountByAccountNumber(String accountNumber);
+
 }

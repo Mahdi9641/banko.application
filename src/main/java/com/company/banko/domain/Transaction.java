@@ -10,14 +10,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
-
-
     private long deposit;
 
     private String description;
-
-    private long amount;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date transactionDate;
@@ -33,14 +28,6 @@ public class Transaction {
 
     public void setDeposit(long deposit) {
         this.deposit = deposit;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getTransactionDate() {
@@ -63,14 +50,6 @@ public class Transaction {
         this.description = description;
     }
 
-    public long getAmount() {
-        return amount;
-    }
-
-    public void setAmount(long amount) {
-        this.amount = amount;
-    }
-
     public Date getTransactionDate(Date date) {
         return transactionDate;
     }
@@ -91,10 +70,8 @@ public class Transaction {
     public String toString() {
         return new StringJoiner(", ", Transaction.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("name='" + name + "'")
                 .add("deposit=" + deposit)
                 .add("description='" + description + "'")
-                .add("amount=" + amount)
                 .add("transactionDate=" + transactionDate)
                 .add("toAccount='" + toAccount + "'")
                 .toString();

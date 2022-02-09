@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.StringJoiner;
 
 @Entity
-public class Party {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Party {
     private Date birthDate;
 
 
-    public Party() {
+    public Person() {
     }
 
 
@@ -67,7 +67,7 @@ public class Party {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Party.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", Person.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("firstName='" + firstName + "'")
                 .add("lastName='" + lastName + "'")

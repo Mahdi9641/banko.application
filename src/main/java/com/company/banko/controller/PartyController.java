@@ -1,12 +1,10 @@
 package com.company.banko.controller;
 
 import com.company.banko.domain.Party;
-import com.company.banko.repository.PartyRepository;
+import com.company.banko.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 
 @RestController
@@ -15,9 +13,9 @@ public class PartyController {
 
     private static final Logger log = LoggerFactory.getLogger(Party.class);
 
-    private final PartyRepository partyRepository;
+    private final PersonRepository partyRepository;
 
-    public PartyController(PartyRepository partyRepository) {
+    public PartyController(PersonRepository partyRepository) {
         this.partyRepository = partyRepository;
     }
 

@@ -6,10 +6,27 @@ public class AccountTransactionDTO {
 
    private String accountNumber;
 
+   private String description;
+
+   private Date transactionDate;
+
    private long deposit;
 
-   private long amount;
+   public String getDescription() {
+      return description;
+   }
 
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public Date getTransactionDate() {
+      return transactionDate;
+   }
+
+   public void setTransactionDate(Date transactionDate) {
+      this.transactionDate = transactionDate;
+   }
 
    public String getAccountNumber() {
       return accountNumber;
@@ -22,18 +39,8 @@ public class AccountTransactionDTO {
    public long getDeposit() {
       return deposit;
    }
-
-
    public void setDeposit(long deposit) {
       this.deposit = deposit;
-   }
-
-   public long getAmount() {
-      return amount;
-   }
-
-   public void setAmount(long amount) {
-      this.amount = amount;
    }
 
 }

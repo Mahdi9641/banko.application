@@ -45,6 +45,7 @@ public class FinancialAccountController {
         financialAccount.setAccountNumber(partyAccountDTO.getAccountNumber());
         Party party = partyRepository.findPartyByNationalNumber(partyAccountDTO.getNationalNumber());
         financialAccount.setParty(party);
+        System.out.println("financialAccount.toString()" + financialAccount.toString());
         financialAccountRepository.save(financialAccount);
         return financialAccount;
     }
@@ -73,7 +74,7 @@ public class FinancialAccountController {
     @DeleteMapping("/deletefinancialAccount")
     public FinancialAccount deleteFinancialAccount(@RequestBody FinancialAccount financialAccount) {
         log.info("deletefinancialAccount");
-        financialAccountRepository.deleteById(financialAccount.getId());
+        financialAccountRepository.deleteFinancialAccountByAccountNumber(financialAccount.getAccountNumber());
         financialAccountRepository.save(financialAccount);
         return financialAccount;
     }

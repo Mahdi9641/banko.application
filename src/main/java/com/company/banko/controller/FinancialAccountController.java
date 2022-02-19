@@ -29,12 +29,11 @@ public class FinancialAccountController {
         log.info("getFinancialAccount");
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccountRepository.findAll();
-        financialAccountRepository.save(getFinancialAccount());
         return financialAccount;
     }
 
     @PostMapping("/createfinancialAccount")
-    public FinancialAccount createFinancialAccount(@RequestBody AccountPartyDTO accountPartyDTO) {
+    public FinancialAccount createFinancialAccount(@RequestBody AccountPersonDTO accountPartyDTO) {
         log.info("createFinancialAccount");
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccount.setCreationDate(accountPartyDTO.getCreationDate());

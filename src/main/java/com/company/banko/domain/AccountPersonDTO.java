@@ -6,7 +6,7 @@ import java.util.List;
 
 
 
-public class AccountPartyDTO {
+public class AccountPersonDTO {
 
     private long personId;
 
@@ -21,7 +21,7 @@ public class AccountPartyDTO {
     private long nationalNumber;
 
 
-    public AccountPartyDTO() {
+    public AccountPersonDTO() {
     }
 
     public long getBalance() {

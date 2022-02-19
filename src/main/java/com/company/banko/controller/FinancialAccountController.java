@@ -33,14 +33,14 @@ public class FinancialAccountController {
     }
 
     @PostMapping("/createfinancialAccount")
-    public FinancialAccount createFinancialAccount(@RequestBody AccountPersonDTO accountPartyDTO) {
+    public FinancialAccount createFinancialAccount(@RequestBody AccountPersonDTO accountPersonDTO) {
         log.info("createFinancialAccount");
         FinancialAccount financialAccount = new FinancialAccount();
-        financialAccount.setCreationDate(accountPartyDTO.getCreationDate());
-        financialAccount.setDescription(accountPartyDTO.getDescription());
-        financialAccount.setBalance(accountPartyDTO.getBalance());
-        financialAccount.setAccountNumber(accountPartyDTO.getAccountNumber());
-        Person  person = personRepository.findPartyByNationalNumber(accountPartyDTO.getPersonId());
+        financialAccount.setCreationDate(financialAccount.getCreationDate());
+        financialAccount.setDescription(financialAccount.getDescription());
+        financialAccount.setBalance(financialAccount.getBalance());
+        financialAccount.setAccountNumber(financialAccount.getAccountNumber());
+        Person  person = personRepository.findPartyByNationalNumber(accountPersonDTO.getNationalNumber());
         financialAccount.setPerson(person);
         System.out.println("financialAccount.toString()" + financialAccount.toString());
         financialAccountRepository.save(financialAccount);

@@ -6,6 +6,8 @@ import com.company.banko.repository.PersonRepository;
 import com.company.banko.repository.TransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,6 +31,8 @@ public class FinancialAccountController {
         log.info("getFinancialAccount");
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccountRepository.findAll();
+      //  financialAccountRepository.findAll(Sort.by(Sort.Direction.ASC , "accountNumber"));
+      //  financialAccountRepository.findAll(PageRequest.of(0 ,3 ));
         return financialAccount;
     }
 
@@ -55,17 +59,20 @@ public class FinancialAccountController {
         account.setBalance(account.getBalance() + transaction.getDeposit());
         Transaction tr = transactionRepository.save(transaction);
         System.out.println("tr.toString() = " + tr.toString()); //for see detail
-
         FinancialAccount financialAccount = financialAccountRepository.findByAccountNumber(account.getAccountNumber());
         return true;
     }
-
-//    @PutMapping("/updatefinancialAccount")
-//    public FinancialAccount updateFinancialAccount(@RequestBody FinancialAccount financialAccount) {
-//        log.info("updatefinancialAccount");
-//        financialAccountRepository.save(financialAccount);
-//        return financialAccount;
-//    }
+    @PutMapping("/updatefinancialAccount")
+    public FinancialAccount updateFinancialAccount(@RequestBody FinancialAccount financialAccount) {
+       log.info("updatefinancialAccount");
+       financialAccount = financialAccountRepository.findByAccountNumber(financialAccount.getAccountNumber());
+        financialAccount.setCreationDate(financialAccount.getCreationDate());
+        financialAccount.setDescription(financialAccount.getDescription());
+        financialAccount.setBalance(financialAccount.getBalance());
+        financialAccount.setAccountNumber(financialAccount.getAccountNumber());
+       financialAccountRepository.save(financialAccount);
+    return financialAccount;
+   }
 
     @DeleteMapping("/deletefinancialAccount/{accountNumber}")
     public void deleteFinancialAccount(@PathVariable String accountNumber) {
@@ -73,3 +80,6 @@ public class FinancialAccountController {
        financialAccountRepository.deleteFinancialAccountByAccountNumber(accountNumber);
     }
 }
+
+
+

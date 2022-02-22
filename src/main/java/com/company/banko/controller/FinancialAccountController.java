@@ -1,85 +1,112 @@
 package com.company.banko.controller;
 
-import com.company.banko.domain.*;
-import com.company.banko.repository.FinancialAccountRepository;
-import com.company.banko.repository.PersonRepository;
-import com.company.banko.repository.TransactionRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import com.company.banko.domain.FinancialAccount;
+import com.company.banko.model.CreateFinancialRequest;
+import com.company.banko.model.DepositRequest;
+import com.company.banko.service.FinancialAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/banko")
 public class FinancialAccountController {
 
-    private static final Logger log = LoggerFactory.getLogger(FinancialAccountController.class);
 
-    private final FinancialAccountRepository financialAccountRepository;
-    private final PersonRepository personRepository;
-    private final TransactionRepository transactionRepository;
+    @Autowired
+    private FinancialAccountService financialAccountService;
 
-    public FinancialAccountController(FinancialAccountRepository financialAccountRepository, PersonRepository personRepository, TransactionRepository transactionRepository) {
+    @GetMapping(path = "/account/getFinancialAccount")
+    private FinancialAccountService getFinancialAccount() {
+
+        financialAccountService.findall();
+        return financialAccountService;
+    }
+
+    @PostMapping(path = "/account/createFinancialAccount")
+    private ResponseEntity<Object> createFinancialAccount(@RequestBody CreateFinancialRequest createFinancialRequest) throws Exception {
+        financialAccountService.insert(createFinancialRequest);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "createAccount");
+        map.put("result", "the Account is Create");
+        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(path = "/account/depositAccount")
+    private void depositAccount(@RequestBody DepositRequest depositRequest){
+        financialAccountService.Insert(depositRequest);
+    }
+
+    @DeleteMapping(path = "/account/deleteFinancialAccount/{financialAccountNumber}")
+    private ResponseEntity<FinancialAccount> deleteFinancialAccount(@PathVariable Long financialAccountNumber) {
+        financialAccountService.delete(financialAccountNumber);
+    return ResponseEntity.noContent()
+            .build();
+    }
+}
+
+
+/* //private final FinancialAccountRepository financialAccountRepository;
+    //private final PersonRepository personRepository;
+    //private final TransactionRepository transactionRepository;
+
+   *//* public FinancialAccountController(FinancialAccountRepository financialAccountRepository, PersonRepository personRepository, TransactionRepository transactionRepository) {
         this.financialAccountRepository = financialAccountRepository;
         this.personRepository = personRepository;
         this.transactionRepository = transactionRepository;
-    }
+    }*//*
 
-    @GetMapping("/getFinancialAccount")
+    @GetMapping
     public FinancialAccount getFinancialAccount() {
-        log.info("getFinancialAccount");
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccountRepository.findAll();
-      //  financialAccountRepository.findAll(Sort.by(Sort.Direction.ASC , "accountNumber"));
-      //  financialAccountRepository.findAll(PageRequest.of(0 ,3 ));
+        //  financialAccountRepository.findAll(Sort.by(Sort.Direction.ASC , "accountNumber"));
+        //  financialAccountRepository.findAll(PageRequest.of(0 ,3 ));
         return financialAccount;
     }
 
-    @PostMapping("/createfinancialAccount")
-    public FinancialAccount createFinancialAccount(@RequestBody AccountPersonDTO accountPersonDTO) {
-        log.info("createFinancialAccount");
+    @PostMapping
+    public FinancialAccount createFinancialAccount(@RequestBody CreateFinancialRequest createFinancialRequest) {
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccount.setCreationDate(financialAccount.getCreationDate());
         financialAccount.setDescription(financialAccount.getDescription());
         financialAccount.setBalance(financialAccount.getBalance());
         financialAccount.setAccountNumber(financialAccount.getAccountNumber());
-        Person  person = personRepository.findPartyByNationalNumber(accountPersonDTO.getNationalNumber());
+        Person person = personRepository.findPartyByNationalNumber(createFinancialRequest.getNationalNumber());
         financialAccount.setPerson(person);
         System.out.println("financialAccount.toString()" + financialAccount.toString());
         financialAccountRepository.save(financialAccount);
         return financialAccount;
     }
 
-    @PostMapping("/depositAccount")
-    public Boolean depositAccount(@RequestBody AccountTransactionDTO accountTransactionDTO) {
+    @PostMapping
+    public Boolean depositAccount(@RequestBody DepositRequest accountTransactionDTO) {
         Transaction transaction = new Transaction();
-        transaction.setDeposit(accountTransactionDTO.getDeposit());
+        transaction.setAmount(accountTransactionDTO.getAmount());
         FinancialAccount account = financialAccountRepository.findByAccountNumber(accountTransactionDTO.getAccountNumber());
-        account.setBalance(account.getBalance() + transaction.getDeposit());
+        account.setBalance(account.getBalance().add(transaction.getAmount()));
         Transaction tr = transactionRepository.save(transaction);
         System.out.println("tr.toString() = " + tr.toString()); //for see detail
         FinancialAccount financialAccount = financialAccountRepository.findByAccountNumber(account.getAccountNumber());
         return true;
     }
-    @PutMapping("/updatefinancialAccount")
+
+    @PutMapping
     public FinancialAccount updateFinancialAccount(@RequestBody FinancialAccount financialAccount) {
-       log.info("updatefinancialAccount");
-       financialAccount = financialAccountRepository.findByAccountNumber(financialAccount.getAccountNumber());
+        financialAccount = financialAccountRepository.findByAccountNumber(financialAccount.getAccountNumber());
         financialAccount.setCreationDate(financialAccount.getCreationDate());
         financialAccount.setDescription(financialAccount.getDescription());
         financialAccount.setBalance(financialAccount.getBalance());
         financialAccount.setAccountNumber(financialAccount.getAccountNumber());
-       financialAccountRepository.save(financialAccount);
-    return financialAccount;
-   }
-
-    @DeleteMapping("/deletefinancialAccount/{accountNumber}")
-    public void deleteFinancialAccount(@PathVariable String accountNumber) {
-        log.info("deletefinancialAccount");
-       financialAccountRepository.deleteFinancialAccountByAccountNumber(accountNumber);
+        financialAccountRepository.save(financialAccount);
+        return financialAccount;
     }
-}
 
-
-
+    @DeleteMapping
+    public void deleteFinancialAccount(@PathVariable long accountNumber) {
+        financialAccountRepository.deleteFinancialAccountByAccountNumber(accountNumber);
+    }*/

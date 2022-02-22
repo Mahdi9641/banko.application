@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-    Person findPartyByNationalNumber(long nationalNumber);
+    Person findPersonByNationalNumber(long nationalNumber);
+    Person deletePersonById(long id);
 }

@@ -1,12 +1,9 @@
-package com.company.banko.domain;
+package com.company.banko.model;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
-
-public class AccountPersonDTO {
+public class CreateFinancialRequest {
 
     private long personId;
 
@@ -21,7 +18,7 @@ public class AccountPersonDTO {
     private long nationalNumber;
 
 
-    public AccountPersonDTO() {
+    public CreateFinancialRequest() {
     }
 
     public long getBalance() {
@@ -73,4 +70,4 @@ public class AccountPersonDTO {
     }
 
 
-  }
+}

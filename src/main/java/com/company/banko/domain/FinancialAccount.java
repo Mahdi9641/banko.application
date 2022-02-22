@@ -3,6 +3,7 @@ package com.company.banko.domain;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
@@ -14,9 +15,9 @@ public class FinancialAccount {
 
     private long id;
 
-    private String accountNumber;
+    private long accountNumber;
 
-    private long balance;
+    private BigDecimal balance;
 
     private String description;
 
@@ -24,11 +25,17 @@ public class FinancialAccount {
     private Date creationDate;
 
     @ManyToOne
+    @JoinColumn(name ="Person_id")
     private Person person;
 
-    @OneToMany
+    @OneToMany(mappedBy = "financialAccount")
     private List<Transaction> transactions;
 
+
+    public FinancialAccount(long id, long accountNumber) {
+        this.id = id;
+        this.accountNumber = accountNumber;
+    }
 
     public Date getCreationDate() {
         return creationDate;
@@ -45,19 +52,25 @@ public class FinancialAccount {
     public FinancialAccount() {
     }
 
-    public String getAccountNumber() {
+    public FinancialAccount(long id, long accountNumber, String description) {
+        this.id = id;
+        this.accountNumber = accountNumber;
+        this.description = description;
+    }
+
+    public long getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
+    public void setAccountNumber(long accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    public long getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -93,6 +106,8 @@ public class FinancialAccount {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+
 
     @Override
     public String toString() {

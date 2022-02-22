@@ -1,6 +1,7 @@
 package com.company.banko.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.StringJoiner;
 
@@ -10,7 +11,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long deposit;
+    private BigDecimal amount;
 
     private String description;
 
@@ -19,19 +20,33 @@ public class Transaction {
 
     private String toAccount;
 
+    @ManyToOne
+    @JoinColumn(name = "FinancialAccount_id")
+    private FinancialAccount financialAccount;
+
     public Transaction() {
     }
 
-    public long getDeposit() {
-        return deposit;
+    public Transaction(long id, BigDecimal amount, String description) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
     }
 
-    public void setDeposit(long deposit) {
-        this.deposit = deposit;
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public Date getTransactionDate() {
         return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
     public long getId() {
@@ -54,10 +69,6 @@ public class Transaction {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
     public String getToAccount() {
         return toAccount;
     }
@@ -66,11 +77,19 @@ public class Transaction {
         this.toAccount = toAccount;
     }
 
+    public FinancialAccount getFinancialAccount() {
+        return financialAccount;
+    }
+
+    public void setFinancialAccount(FinancialAccount financialAccount) {
+        this.financialAccount = financialAccount;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Transaction.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("deposit=" + deposit)
+                .add("deposit=" + amount)
                 .add("description='" + description + "'")
                 .add("transactionDate=" + transactionDate)
                 .add("toAccount='" + toAccount + "'")

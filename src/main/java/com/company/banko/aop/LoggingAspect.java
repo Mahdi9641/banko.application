@@ -18,17 +18,15 @@ public class LoggingAspect {
     private static final org.apache.logging.log4j.Logger LOGGER = (org.apache.logging.log4j.Logger) LogManager.getLogger(LoggingAspect.class);
 
     @Before("execution(* com.company.banko.service.FinancialAccountServiceImpl.*(..))")
-    public JoinPoint logBeforeAllMethods(JoinPoint joinPoint) {
+    public void logBeforeAllMethods(final JoinPoint retyrnValue) {
 
-        LOGGER.info(" FinancialAccount Logging AOP - Display the status before executing the method" + joinPoint);
-        return joinPoint;
+        LOGGER.info(" FinancialAccount Logging AOP - Display the status before executing the method" , retyrnValue);
     }
 
     @After("execution(* com.company.banko.service.FinancialAccountServiceImpl.*(..))")
-    public JoinPoint logAfterAllMethods(JoinPoint joinPoint) {
+    public void logAfterAllMethods(final JoinPoint retyrnValue) {
 
-        LOGGER.info(" FinancialAccount Logging AOP - Display the status after executing the method" + joinPoint);
-        return joinPoint;
+        LOGGER.info(" FinancialAccount Logging AOP - Display the status after executing the method", retyrnValue);
     }
 
 

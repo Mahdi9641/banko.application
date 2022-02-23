@@ -4,7 +4,6 @@ package com.company.banko.controller;
 import com.company.banko.domain.Person;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.service.PersonService;
-import com.company.banko.service.PersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,7 @@ public class PersonController {
     public ResponseEntity<Object> createPerson(@RequestBody Person person) {
         personService.insert(person);
         Map<String, Object> map = new HashMap<>();
-        map.put("status", "createPerson");
+        map.put("status", "Waiting to create account");
         map.put("result", "the Person is Create");
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
@@ -49,7 +48,7 @@ public class PersonController {
 
     @DeleteMapping(path = "/person/deletePerson/{personId}")
     public ResponseEntity<Person> deletePerson(@PathVariable Long personId) {
-       personService.delete(personId);
+        personService.delete(personId);
         return ResponseEntity.noContent()
                 .build();
     }

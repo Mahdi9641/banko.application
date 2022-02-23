@@ -16,7 +16,6 @@ import java.util.Map;
 @RequestMapping("/banko")
 public class FinancialAccountController {
 
-
     @Autowired
     private FinancialAccountService financialAccountService;
 
@@ -31,21 +30,21 @@ public class FinancialAccountController {
     private ResponseEntity<Object> createFinancialAccount(@RequestBody CreateFinancialRequest createFinancialRequest) throws Exception {
         financialAccountService.insert(createFinancialRequest);
         Map<String, Object> map = new HashMap<>();
-        map.put("status", "createAccount");
+        map.put("status", "active");
         map.put("result", "the Account is Create");
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
     @PostMapping(path = "/account/depositAccount")
-    private void depositAccount(@RequestBody DepositRequest depositRequest){
+    private void depositAccount(@RequestBody DepositRequest depositRequest) {
         financialAccountService.Insert(depositRequest);
     }
 
     @DeleteMapping(path = "/account/deleteFinancialAccount/{financialAccountNumber}")
     private ResponseEntity<FinancialAccount> deleteFinancialAccount(@PathVariable Long financialAccountNumber) {
         financialAccountService.delete(financialAccountNumber);
-    return ResponseEntity.noContent()
-            .build();
+        return ResponseEntity.noContent()
+                .build();
     }
 }
 

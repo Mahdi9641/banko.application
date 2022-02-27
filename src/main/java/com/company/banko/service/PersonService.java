@@ -1,6 +1,7 @@
 package com.company.banko.service;
 
 import com.company.banko.domain.Person;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface PersonService {
 
     Person update(Person person);
 
-    void delete(Long personId);
+    ResponseEntity<Void> delete(Long personId);
 }

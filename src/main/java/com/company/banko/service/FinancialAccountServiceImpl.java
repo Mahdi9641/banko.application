@@ -11,11 +11,12 @@ import com.company.banko.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class FinancialAccountServiceImpl implements FinancialAccountService {
 
     @Autowired
@@ -48,8 +49,8 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
         financialAccount.setBalance(financialAccount.getBalance());
         financialAccount.setAccountNumber(financialAccount.getAccountNumber());
         Person person = personRepository.findPersonByNationalNumber(createFinancialRequest.getNationalNumber());
-        if (person.getAge() < 18){
-         throw new PersonAgeCustomExeption("The person has not reached the legal age");
+        if (person.getAge() < 18) {
+            throw new PersonAgeCustomExeption("The person has not reached the legal age");
         }
         financialAccount.setPerson(person);
         System.out.println("financialAccount.toString()" + financialAccount.toString());

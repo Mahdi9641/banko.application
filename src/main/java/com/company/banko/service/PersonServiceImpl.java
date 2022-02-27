@@ -3,11 +3,14 @@ package com.company.banko.service;
 import com.company.banko.domain.Person;
 import com.company.banko.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
@@ -35,7 +38,6 @@ public class PersonServiceImpl implements PersonService {
         return person;
 
 
-
     }
 
     @Override
@@ -44,11 +46,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void delete(Long personId) {
-
+    public ResponseEntity<Void> delete(Long personId) {
         personRepository.deleteById(personId);
-        /*return ResponseEntity.noContent()
-                .build();*/
+        return ResponseEntity.noContent()
+                .build();
 
     }
 }

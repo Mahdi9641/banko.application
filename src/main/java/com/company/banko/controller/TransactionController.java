@@ -1,43 +1,49 @@
 package com.company.banko.controller;
 
 import com.company.banko.domain.Transaction;
-import com.company.banko.repository.TransactionRepository;
+import com.company.banko.model.DepositRequest;
+import com.company.banko.service.FinancialAccountService;
+import com.company.banko.service.TransactionService;
+import com.company.banko.service.TransactionServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/banko/Transaction-Request")
 public class TransactionController {
 
-    private final TransactionRepository transactionRepository;
+    @Autowired
+    private TransactionService transactionService;
 
-    public TransactionController(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
+
 
     @GetMapping
-    public Transaction getTransaction() {
-        Transaction transaction = new Transaction();
-        transactionRepository.findAll();
-        return transaction;
+    private TransactionService getFinancialAccount() {
+        transactionService.findall();
+        return transactionService;
     }
 
     @PostMapping
-    public Transaction createTransaction(@RequestBody Transaction transaction) {
-        transactionRepository.save(transaction);
-        return transaction;
+    private ResponseEntity<Object> createFinancialAccount(@RequestBody DepositRequest depositRequest) throws Exception {
+        transactionService.insert(depositRequest);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", "Ok");
+        map.put("result", "The amount was deposited");
+        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping
-    public Transaction updateFinancialAccount(@RequestBody Transaction transaction) {
-        transactionRepository.save(transaction);
-        return transaction;
-    }
 
-    @DeleteMapping
-    public Transaction deleteFinancialAccount(@RequestBody Transaction transaction) {
-        transactionRepository.deleteById(transaction.getId());
-        transactionRepository.save(transaction);
-        return transaction;
+    @DeleteMapping(path = "/transaction/deleteTransaction/{transactionId}")
+    public ResponseEntity<Transaction> deleteFinancialAccount(@RequestBody long transactionId) {
+        transactionService.delete(transactionId);
+        return ResponseEntity.noContent()
+                .build();
     }
 }

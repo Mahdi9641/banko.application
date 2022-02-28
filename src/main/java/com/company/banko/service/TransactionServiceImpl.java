@@ -7,10 +7,15 @@ import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-public class TransactionServiceImpl implements TransactionService{
+
+@Service
+@Transactional
+public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private final TransactionRepository transactionRepository;
@@ -29,7 +34,6 @@ public class TransactionServiceImpl implements TransactionService{
         transactionRepository.findAll();
         return transactionRepository.findAll();
     }
-
 
 
     @Override
@@ -55,7 +59,9 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long transactionNumber) {
-        return null;
+    public ResponseEntity<Void> delete(Long transactionId) {
+        transactionRepository.deleteTransactionById(transactionId);
+        return ResponseEntity.noContent()
+                .build();
     }
 }

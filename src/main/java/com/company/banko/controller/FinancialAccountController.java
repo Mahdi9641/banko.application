@@ -21,7 +21,6 @@ public class FinancialAccountController {
 
     @GetMapping(path = "/account/getFinancialAccount")
     private FinancialAccountService getFinancialAccount() {
-
         financialAccountService.findall();
         return financialAccountService;
     }

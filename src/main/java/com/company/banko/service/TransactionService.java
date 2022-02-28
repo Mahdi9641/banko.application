@@ -14,5 +14,5 @@ public interface TransactionService {
 
     Transaction update(Transaction transaction);
 
-    ResponseEntity<Void> delete(Long transactionNumber);
+    ResponseEntity<Void> delete(Long transactionId);
 }

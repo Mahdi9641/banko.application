@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
+    Transaction findTransactionById(long id);
+
+    Transaction deleteTransactionById(long id);
 }

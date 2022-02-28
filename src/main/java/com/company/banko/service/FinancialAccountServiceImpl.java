@@ -2,6 +2,7 @@ package com.company.banko.service;
 
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
+import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.PersonAgeCustomExeption;
 import com.company.banko.model.CreateFinancialRequest;
 import com.company.banko.model.DepositRequest;
@@ -64,18 +65,16 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
     }
 
     @Override
-    public FinancialAccount Insert(DepositRequest depositRequest) {
-        CreateFinancialRequest createFinancialRequest = new CreateFinancialRequest();
+    public boolean Insert(DepositRequest depositRequest) {
         FinancialAccount financialAccount = new FinancialAccount();
-        financialAccount.setCreationDate(financialAccount.getCreationDate());
-        financialAccount.setDescription(financialAccount.getDescription());
-        financialAccount.setBalance(financialAccount.getBalance());
-        financialAccount.setAccountNumber(financialAccount.getAccountNumber());
-        Person person = personRepository.findPersonByNationalNumber(createFinancialRequest.getNationalNumber());
-        financialAccount.setPerson(person);
-        System.out.println("financialAccount.toString()" + financialAccount.toString());
-        financialAccountRepository.save(financialAccount);
-        return financialAccount;
+        Transaction transaction = new Transaction();
+        transaction.setAmount(depositRequest.getAmount());
+        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
+        account.setBalance(account.getBalance().add(transaction.getAmount()));
+        Transaction tr = transactionRepository.save(transaction);
+        System.out.println("tr.toString() = " + tr.toString()); //for see detail
+        financialAccount = financialAccountRepository.findByAccountNumber(account.getAccountNumber());
+        return true;
     }
 
 

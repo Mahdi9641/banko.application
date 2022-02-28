@@ -15,7 +15,7 @@ public interface FinancialAccountService {
 
     FinancialAccount update(FinancialAccount financialAccount);
 
-    FinancialAccount Insert(DepositRequest depositRequest);
+    boolean Insert(DepositRequest depositRequest);
 
     ResponseEntity<Void> delete(Long financialAccountNumber);
 }

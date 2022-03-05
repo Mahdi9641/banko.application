@@ -1,7 +1,5 @@
 package com.company.banko.domain;
 
-import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,7 +11,7 @@ public class FinancialAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+    private long id;
 
     private long accountNumber;
 
@@ -25,28 +23,16 @@ public class FinancialAccount {
     private Date creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="Person_id")
+    @JoinColumn(name = "Person_id")
     private Person person;
 
-    @OneToMany(mappedBy = "financialAccount" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "financialAccount", fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 
 
     public FinancialAccount(long id, long accountNumber) {
         this.id = id;
         this.accountNumber = accountNumber;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
     }
 
     public FinancialAccount() {
@@ -56,6 +42,22 @@ public class FinancialAccount {
         this.id = id;
         this.accountNumber = accountNumber;
         this.description = description;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public long getAccountNumber() {
@@ -73,7 +75,6 @@ public class FinancialAccount {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
-
 
     public long getId() {
         return id;
@@ -95,10 +96,6 @@ public class FinancialAccount {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public Person getPerson() {
         return person;
     }
@@ -106,7 +103,6 @@ public class FinancialAccount {
     public void setPerson(Person person) {
         this.person = person;
     }
-
 
 
     @Override

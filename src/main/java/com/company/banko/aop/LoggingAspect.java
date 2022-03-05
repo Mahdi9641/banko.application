@@ -50,12 +50,9 @@ public class LoggingAspect {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
         final StopWatch stopWatch = new StopWatch();
-
         stopWatch.start();
         Object result = proceedingJoinPoint.proceed();
         stopWatch.stop();
-
-
         LOGGER.info(" FinancialAccount Logging AOP - Execution time of "
                 + methodSignature.getDeclaringType().getSimpleName() // Class Name
                 + "." + methodSignature.getName() + " " // Method Name
@@ -65,10 +62,25 @@ public class LoggingAspect {
     }
 
     @Around("execution(* com.company.banko.service.PersonServiceImpl.*(..))")
-    public void logPersonServiceMethodExecutionTime() throws Throwable {
+    public Object logPersonServiceMethodExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Object result = proceedingJoinPoint.proceed();
+        stopWatch.stop();
+
+        LOGGER.info(" FinancialAccount Logging AOP - Execution time of "
+                + methodSignature.getDeclaringType().getSimpleName() // Class Name
+                + "." + methodSignature.getName() + " " // Method Name
+                + ":: " + stopWatch.getTotalTimeMillis() + " ms");
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dtf.format(now));
+
+        return result;
     }
 
 }

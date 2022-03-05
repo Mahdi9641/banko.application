@@ -12,6 +12,7 @@ import com.company.banko.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -64,7 +65,7 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
         return null;
     }
 
-    @Override
+  /*  @Override
     public boolean Insert(DepositRequest depositRequest) {
         FinancialAccount financialAccount = new FinancialAccount();
         Transaction transaction = new Transaction();
@@ -75,7 +76,7 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
         System.out.println("tr.toString() = " + tr.toString()); //for see detail
         financialAccount = financialAccountRepository.findByAccountNumber(account.getAccountNumber());
         return true;
-    }
+    }*/
 
 
     @Override

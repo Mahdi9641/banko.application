@@ -2,7 +2,6 @@ package com.company.banko.controller;
 
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.model.CreateFinancialRequest;
-import com.company.banko.model.DepositRequest;
 import com.company.banko.service.FinancialAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,17 +33,13 @@ public class FinancialAccountController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @PostMapping(path = "/account/depositAccount")
-    private void depositAccount(@RequestBody DepositRequest depositRequest) {
-        financialAccountService.Insert(depositRequest);
-    }
-
     @DeleteMapping(path = "/account/deleteFinancialAccount/{financialAccountNumber}")
     private ResponseEntity<FinancialAccount> deleteFinancialAccount(@PathVariable Long financialAccountNumber) {
         financialAccountService.delete(financialAccountNumber);
         return ResponseEntity.noContent()
                 .build();
     }
+
 }
 
 
@@ -108,3 +103,8 @@ public class FinancialAccountController {
     public void deleteFinancialAccount(@PathVariable long accountNumber) {
         financialAccountRepository.deleteFinancialAccountByAccountNumber(accountNumber);
     }*/
+
+/*  @PostMapping(path = "/account/depositAccount")
+      private void depositAccount(@RequestBody DepositRequest depositRequest) {
+          financialAccountService.Insert(depositRequest);
+      }*/

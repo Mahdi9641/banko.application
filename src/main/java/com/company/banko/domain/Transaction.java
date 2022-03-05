@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private BigDecimal amount;
 
@@ -20,7 +20,7 @@ public class Transaction {
 
     private String toAccount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FinancialAccount_id")
     private FinancialAccount financialAccount;
 

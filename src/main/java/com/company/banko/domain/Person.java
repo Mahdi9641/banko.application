@@ -10,7 +10,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String firstName;
 
@@ -23,7 +23,7 @@ public class Person {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person" , fetch = FetchType.LAZY)
     private Set<FinancialAccount> financialAccounts;
 
 

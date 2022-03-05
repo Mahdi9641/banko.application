@@ -13,7 +13,7 @@ public class FinancialAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id;
+    private Long id;
 
     private long accountNumber;
 
@@ -24,11 +24,11 @@ public class FinancialAccount {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="Person_id")
     private Person person;
 
-    @OneToMany(mappedBy = "financialAccount")
+    @OneToMany(mappedBy = "financialAccount" , fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 
 

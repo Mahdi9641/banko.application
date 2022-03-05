@@ -2,6 +2,7 @@ package com.company.banko.service;
 
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Transaction;
+import com.company.banko.exeptions.TransactionAmountCustomExeption;
 import com.company.banko.model.DepositRequest;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.TransactionRepository;
@@ -41,6 +42,9 @@ public class TransactionServiceImpl implements TransactionService {
         DepositRequest depositRequest1 = new DepositRequest();
         Transaction transaction = new Transaction();
         transaction.setAmount(transaction.getAmount());
+        if (transaction.getAmount() == null){
+            throw new TransactionAmountCustomExeption("The amount can not be empty");
+        }
         transaction.setToAccount(transaction.getToAccount());
         transaction.setDescription(transaction.getDescription());
         transaction.setTransactionDate(transaction.getTransactionDate());

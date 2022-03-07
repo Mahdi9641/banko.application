@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,9 +20,9 @@ public class FinancialAccountController {
     private FinancialAccountService financialAccountService;
 
     @GetMapping(path = "/account/getFinancialAccount")
-    private FinancialAccountService getFinancialAccount() {
-        financialAccountService.findall();
-        return financialAccountService;
+    public ResponseEntity<List<FinancialAccount>> getFinancialAccounts() {
+        List<FinancialAccount> financialAccounts = financialAccountService.findAll();
+        return new ResponseEntity<>(financialAccounts , HttpStatus.OK);
     }
 
     @PostMapping(path = "/account/createFinancialAccount")

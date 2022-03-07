@@ -1,4 +1,4 @@
-package com.company.banko.service;
+package com.company.banko.service.impl;
 
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
@@ -7,6 +7,7 @@ import com.company.banko.model.CreateFinancialRequest;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.repository.TransactionRepository;
+import com.company.banko.service.FinancialAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,13 +36,13 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
 
 
     @Override
-    public List<FinancialAccount> findall() {
+    public List<FinancialAccount> findAll() {
         financialAccountRepository.findAll();
         return financialAccountRepository.findAll();
     }
 
     @Override
-    public ResponseEntity<FinancialAccount> insert(CreateFinancialRequest createFinancialRequest) throws Exception {
+    public FinancialAccount insert(CreateFinancialRequest createFinancialRequest) throws Exception {
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccount.setCreationDate(financialAccount.getCreationDate());
         financialAccount.setDescription(financialAccount.getDescription());
@@ -54,33 +55,11 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
         financialAccount.setPerson(person);
         System.out.println("financialAccount.toString()" + financialAccount.toString());
         financialAccount = financialAccountRepository.save(financialAccount);
-        return ResponseEntity.ok().body(financialAccount);
+        return financialAccount;
     }
 
     @Override
-    public FinancialAccount update(FinancialAccount financialAccount) {
-        return null;
-    }
-
-  /*  @Override
-    public boolean Insert(DepositRequest depositRequest) {
-        FinancialAccount financialAccount = new FinancialAccount();
-        Transaction transaction = new Transaction();
-        transaction.setAmount(depositRequest.getAmount());
-        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
-        account.setBalance(account.getBalance().add(transaction.getAmount()));
-        Transaction tr = transactionRepository.save(transaction);
-        System.out.println("tr.toString() = " + tr.toString()); //for see detail
-        financialAccount = financialAccountRepository.findByAccountNumber(account.getAccountNumber());
-        return true;
-    }*/
-
-
-    @Override
-    public ResponseEntity<Void> delete(Long financialAccountNumber) {
-
+    public void delete(Long financialAccountNumber) {
         financialAccountRepository.deleteFinancialAccountByAccountNumber(financialAccountNumber);
-        return ResponseEntity.noContent()
-                .build();
     }
 }

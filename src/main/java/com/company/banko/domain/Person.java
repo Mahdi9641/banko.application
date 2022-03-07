@@ -1,89 +1,45 @@
 package com.company.banko.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 import java.util.StringJoiner;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "firstName")
     private String firstName;
 
+    @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "age")
     private long age;
 
+    @Column(name = "nationalNumber")
     private long nationalNumber;
 
+    @Column(name = "birthDate")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @OneToMany(mappedBy = "person" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private Set<FinancialAccount> financialAccounts;
 
-
-    public Person() {
-    }
-
-    public Person(long id, String firstName, String lastName, long nationalNumber) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalNumber = nationalNumber;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public long getNationalNumber() {
-        return nationalNumber;
-    }
-
-    public void setNationalNumber(long nationalNumber) {
-        this.nationalNumber = nationalNumber;
-    }
-
-    public Set<FinancialAccount> getFinancialAccounts() {
-        return financialAccounts;
-    }
-
-    public void setFinancialAccounts(Set<FinancialAccount> financialAccounts) {
-        this.financialAccounts = financialAccounts;
-    }
 
     public long getAge() {
         return age;

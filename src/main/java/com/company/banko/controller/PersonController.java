@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,9 +27,9 @@ public class PersonController {
     }
 
     @GetMapping
-    private PersonService getPerson() {
-        personService.findall();
-        return personService;
+    private ResponseEntity<List<Person>> getPersons() {
+        List<Person> persons = personService.findAll();
+        return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 
     @PostMapping
@@ -41,12 +42,12 @@ public class PersonController {
     }
 
     @PutMapping
-    public Person updatePerson(@RequestBody Person person) {
+    public ResponseEntity<Object> updatePerson(@RequestBody Person person) {
         personRepository.save(person);
-        return person;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/person/deletePerson/{personId}")
+    @DeleteMapping(path = "{personId}")
     public ResponseEntity<Person> deletePerson(@PathVariable Long personId) {
         personService.delete(personId);
         return ResponseEntity.noContent()

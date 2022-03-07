@@ -1,24 +1,37 @@
 package com.company.banko.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
 
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Entity
 public class FinancialAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "accountNumber")
     private long accountNumber;
 
+    @Column(name = "balance")
     private BigDecimal balance;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -28,81 +41,6 @@ public class FinancialAccount {
 
     @OneToMany(mappedBy = "financialAccount", fetch = FetchType.LAZY)
     private List<Transaction> transactions;
-
-
-    public FinancialAccount(long id, long accountNumber) {
-        this.id = id;
-        this.accountNumber = accountNumber;
-    }
-
-    public FinancialAccount() {
-    }
-
-    public FinancialAccount(long id, long accountNumber, String description) {
-        this.id = id;
-        this.accountNumber = accountNumber;
-        this.description = description;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public long getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreationDate(Date creationDate) {
-        return creationDate;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
 
 
     @Override

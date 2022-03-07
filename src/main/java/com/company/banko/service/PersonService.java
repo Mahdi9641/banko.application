@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PersonService {
 
-    List<Person> findall();
+    List<Person> findAll();
 
     Person insert(Person person);
 

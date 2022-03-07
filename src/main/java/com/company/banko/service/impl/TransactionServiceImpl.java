@@ -1,4 +1,4 @@
-package com.company.banko.service;
+package com.company.banko.service.impl;
 
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Transaction;
@@ -6,8 +6,8 @@ import com.company.banko.exeptions.TransactionAmountCustomExeption;
 import com.company.banko.model.DepositRequest;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.TransactionRepository;
+import com.company.banko.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,12 +18,11 @@ import java.util.List;
 @Transactional
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
-    private final TransactionRepository transactionRepository;
 
-    @Autowired
+    private final TransactionRepository transactionRepository;
     private final FinancialAccountRepository financialAccountRepository;
 
+    @Autowired
     public TransactionServiceImpl(TransactionRepository transactionRepository, FinancialAccountRepository financialAccountRepository) {
         this.transactionRepository = transactionRepository;
         this.financialAccountRepository = financialAccountRepository;
@@ -42,7 +41,7 @@ public class TransactionServiceImpl implements TransactionService {
         DepositRequest depositRequest1 = new DepositRequest();
         Transaction transaction = new Transaction();
         transaction.setAmount(transaction.getAmount());
-        if (transaction.getAmount() == null){
+        if (transaction.getAmount() == null) {
             throw new TransactionAmountCustomExeption("The amount can not be empty");
         }
         transaction.setToAccount(transaction.getToAccount());
@@ -63,9 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long transactionId) {
-        transactionRepository.deleteTransactionById(transactionId);
-        return ResponseEntity.noContent()
-                .build();
+    public void delete(Long transactionId) {
+        transactionRepository.deleteById(transactionId);
     }
 }

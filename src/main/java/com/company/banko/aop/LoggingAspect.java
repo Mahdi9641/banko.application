@@ -20,32 +20,33 @@ public class LoggingAspect {
 
     private static final org.apache.logging.log4j.Logger LOGGER = (org.apache.logging.log4j.Logger) LogManager.getLogger(LoggingAspect.class);
 
-    @Before("execution(* com.company.banko.service.FinancialAccountServiceImpl.*(..))")
+    @Before("execution(* com.company.banko.service.impl.FinancialAccountServiceImpl.*(..))")
     public void logBeforeAllMethods(final JoinPoint retyrnValue) {
 
         LOGGER.info(" FinancialAccount Logging AOP - Display the status before executing the method", retyrnValue);
     }
 
-    @Before("execution(* com.company.banko.service.PersonServiceImpl.*(..))")
+    @Before("execution(* com.company.banko.service.impl.PersonServiceImpl.*(..))")
     public void logBeforeMethods(final JoinPoint retyrnValue) {
 
         LOGGER.info(" Person Logging AOP - Display the status before executing the method", retyrnValue);
     }
 
-    @After("execution(* com.company.banko.service.FinancialAccountServiceImpl.*(..))")
+    @After("execution(* com.company.banko.service.impl.FinancialAccountServiceImpl.*(..))")
     public void logAfterAllMethods(final JoinPoint retyrnValue) {
 
         LOGGER.info(" FinancialAccount Logging AOP - Display the status after executing the method", retyrnValue);
     }
 
-    @After("execution(* com.company.banko.service.PersonServiceImpl.*(..))")
+    @After("execution(* com.company.banko.service.impl.PersonServiceImpl.*(..))")
     public void logAfterMethods(final JoinPoint retyrnValue) {
 
         LOGGER.info(" Person Logging AOP - Display the status after executing the method", retyrnValue);
     }
 
 
-    @Around("execution(* com.company.banko.service.FinancialAccountServiceImpl.*(..))")
+   // @Around("execution(* com.company.banko.service.impl.FinancialAccountServiceImpl.*(..))")
+    @Around("@annotation(CustomLog)")
     public Object logFinancialAccountServiceMethodExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
@@ -60,27 +61,4 @@ public class LoggingAspect {
 
         return result;
     }
-
-    @Around("execution(* com.company.banko.service.PersonServiceImpl.*(..))")
-    public Object logPersonServiceMethodExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-
-        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
-
-        final StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        Object result = proceedingJoinPoint.proceed();
-        stopWatch.stop();
-
-        LOGGER.info(" FinancialAccount Logging AOP - Execution time of "
-                + methodSignature.getDeclaringType().getSimpleName() // Class Name
-                + "." + methodSignature.getName() + " " // Method Name
-                + ":: " + stopWatch.getTotalTimeMillis() + " ms");
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
-
-        return result;
-    }
-
 }

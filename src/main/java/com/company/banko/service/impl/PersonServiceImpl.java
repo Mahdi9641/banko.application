@@ -1,7 +1,9 @@
-package com.company.banko.service;
+package com.company.banko.service.impl;
 
+import com.company.banko.aop.CustomLog;
 import com.company.banko.domain.Person;
 import com.company.banko.repository.PersonRepository;
+import com.company.banko.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,21 +15,22 @@ import java.util.List;
 @Transactional
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
     private final PersonRepository personRepository;
 
+    @Autowired
     public PersonServiceImpl(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
 
     @Override
-    public List<Person> findall() {
+    public List<Person> findAll() {
         personRepository.findAll();
         return personRepository.findAll();
     }
 
     @Override
+    @CustomLog
     public Person insert(Person person) {
         person.setFirstName(person.getFirstName());
         person.setLastName(person.getLastName());

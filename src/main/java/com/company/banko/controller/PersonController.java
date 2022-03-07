@@ -41,11 +41,6 @@ public class PersonController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping
-    public ResponseEntity<Object> updatePerson(@RequestBody Person person) {
-        personRepository.save(person);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @DeleteMapping(path = "{personId}")
     public ResponseEntity<Person> deletePerson(@PathVariable Long personId) {

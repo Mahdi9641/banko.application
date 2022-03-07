@@ -11,7 +11,5 @@ public interface PersonService {
 
     Person insert(Person person);
 
-    Person update(Person person);
-
     ResponseEntity<Void> delete(Long personId);
 }

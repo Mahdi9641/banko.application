@@ -24,6 +24,7 @@ public class PersonServiceImpl implements PersonService {
 
 
     @Override
+    @CustomLog
     public List<Person> findAll() {
         personRepository.findAll();
         return personRepository.findAll();
@@ -44,11 +45,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person update(Person person) {
-        return null;
-    }
-
-    @Override
+    @CustomLog
     public ResponseEntity<Void> delete(Long personId) {
         personRepository.deleteById(personId);
         return ResponseEntity.noContent()

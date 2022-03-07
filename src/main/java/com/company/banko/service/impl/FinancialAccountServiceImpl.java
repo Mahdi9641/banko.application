@@ -1,5 +1,6 @@
 package com.company.banko.service.impl;
 
+import com.company.banko.aop.CustomLog;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
 import com.company.banko.exeptions.PersonAgeCustomExeption;
@@ -19,15 +20,12 @@ import java.util.List;
 @Transactional
 public class FinancialAccountServiceImpl implements FinancialAccountService {
 
-    @Autowired
+
     private final FinancialAccountRepository financialAccountRepository;
-
-    @Autowired
     private final PersonRepository personRepository;
-
-    @Autowired
     private final TransactionRepository transactionRepository;
 
+    @Autowired
     public FinancialAccountServiceImpl(FinancialAccountRepository financialAccountRepository, PersonRepository personRepository, TransactionRepository transactionRepository) {
         this.financialAccountRepository = financialAccountRepository;
         this.personRepository = personRepository;
@@ -36,12 +34,14 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
 
 
     @Override
+    @CustomLog
     public List<FinancialAccount> findAll() {
         financialAccountRepository.findAll();
         return financialAccountRepository.findAll();
     }
 
     @Override
+    @CustomLog
     public FinancialAccount insert(CreateFinancialRequest createFinancialRequest) throws Exception {
         FinancialAccount financialAccount = new FinancialAccount();
         financialAccount.setCreationDate(financialAccount.getCreationDate());
@@ -59,6 +59,7 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
     }
 
     @Override
+    @CustomLog
     public void delete(Long financialAccountNumber) {
         financialAccountRepository.deleteFinancialAccountByAccountNumber(financialAccountNumber);
     }

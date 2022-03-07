@@ -1,5 +1,6 @@
 package com.company.banko.service.impl;
 
+import com.company.banko.aop.CustomLog;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.TransactionAmountCustomExeption;
@@ -37,6 +38,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
+    @CustomLog
     public boolean insert(DepositRequest depositRequest) throws Exception {
         DepositRequest depositRequest1 = new DepositRequest();
         Transaction transaction = new Transaction();
@@ -62,6 +64,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    @CustomLog
     public void delete(Long transactionId) {
         transactionRepository.deleteById(transactionId);
     }

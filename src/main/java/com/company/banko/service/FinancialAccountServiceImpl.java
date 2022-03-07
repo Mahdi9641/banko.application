@@ -2,17 +2,14 @@ package com.company.banko.service;
 
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
-import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.PersonAgeCustomExeption;
 import com.company.banko.model.CreateFinancialRequest;
-import com.company.banko.model.DepositRequest;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 
 import javax.transaction.Transactional;
 import java.util.List;

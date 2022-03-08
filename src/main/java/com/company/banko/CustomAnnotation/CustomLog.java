@@ -1,4 +1,4 @@
-package com.company.banko.aop;
+package com.company.banko.CustomAnnotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

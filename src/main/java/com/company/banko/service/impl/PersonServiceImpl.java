@@ -1,6 +1,6 @@
 package com.company.banko.service.impl;
 
-import com.company.banko.aop.CustomLog;
+import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.Person;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.service.PersonService;

@@ -1,6 +1,6 @@
 package com.company.banko.service.impl;
 
-import com.company.banko.aop.CustomLog;
+import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.TransactionAmountCustomExeption;

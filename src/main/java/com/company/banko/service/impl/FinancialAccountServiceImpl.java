@@ -1,6 +1,6 @@
 package com.company.banko.service.impl;
 
-import com.company.banko.aop.CustomLog;
+import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
 import com.company.banko.exeptions.PersonAgeCustomExeption;
@@ -10,7 +10,6 @@ import com.company.banko.repository.PersonRepository;
 import com.company.banko.repository.TransactionRepository;
 import com.company.banko.service.FinancialAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

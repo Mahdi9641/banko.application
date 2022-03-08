@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -18,9 +19,9 @@ public class CreateFinancialRequest {
 
     private String description;
 
-    private long balance;
+    private BigDecimal balance;
 
-    private String accountNumber;
+    private long accountNumber;
 
     private Date creationDate;
 

@@ -35,11 +35,11 @@ public class PersonServiceImpl implements PersonService {
     @CustomLog
     public Person insert(CreatePersonRequest createPersonRequest) {
         Person person = new Person();
-        person.setFirstName(person.getFirstName());
-        person.setLastName(person.getLastName());
-        person.setAge(person.getAge());
-        person.setNationalNumber(person.getNationalNumber());
-        person.setBirthDate(person.getBirthDate());
+        person.setFirstName(createPersonRequest.getFirstName());
+        person.setLastName(createPersonRequest.getLastName());
+        person.setAge(createPersonRequest.getAge());
+        person.setNationalNumber(createPersonRequest.getNationalNumber());
+        person.setBirthDate(createPersonRequest.getBirthDate());
         person = personRepository.save(person);
         return person;
 

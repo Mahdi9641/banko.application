@@ -43,10 +43,10 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
     @CustomLog
     public FinancialAccount insert(CreateFinancialRequest createFinancialRequest) throws Exception {
         FinancialAccount financialAccount = new FinancialAccount();
-        financialAccount.setCreationDate(financialAccount.getCreationDate());
-        financialAccount.setDescription(financialAccount.getDescription());
-        financialAccount.setBalance(financialAccount.getBalance());
-        financialAccount.setAccountNumber(financialAccount.getAccountNumber());
+        financialAccount.setCreationDate(createFinancialRequest.getCreationDate());
+        financialAccount.setDescription(createFinancialRequest.getDescription());
+        financialAccount.setBalance(createFinancialRequest.getBalance());
+        financialAccount.setAccountNumber(createFinancialRequest.getAccountNumber());
         Person person = personRepository.findPersonByNationalNumber(createFinancialRequest.getNationalNumber());
         if (person.getAge() < 18) {
             throw new PersonAgeCustomExeption("The person has not reached the legal age");

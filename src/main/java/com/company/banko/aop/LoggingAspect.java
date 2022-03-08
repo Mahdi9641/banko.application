@@ -8,6 +8,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
+import java.util.Arrays;
+
 @Aspect
 @Component
 public class LoggingAspect {
@@ -56,10 +58,11 @@ public class LoggingAspect {
                 + "." + methodSignature.getName() + " " // Method Name
                 + ":: " + stopWatch.getTotalTimeMillis() + " ms");
 
-        Object[] signatureArgs = proceedingJoinPoint.getArgs();
+/*        Object[] signatureArgs = proceedingJoinPoint.getArgs();
         for (Object signatureArg : signatureArgs) {
             System.out.println("Arg: " + signatureArg);
-        }
+        }*/
+
         return result;
     }
 

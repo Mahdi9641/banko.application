@@ -14,6 +14,8 @@ public class CreateFinancialRequest {
 
     private long personId;
 
+    private long nationalNumber;
+
     private String description;
 
     private long balance;
@@ -22,7 +24,7 @@ public class CreateFinancialRequest {
 
     private Date creationDate;
 
-    private long nationalNumber;
+
 
 
 

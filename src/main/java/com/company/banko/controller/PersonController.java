@@ -2,6 +2,7 @@ package com.company.banko.controller;
 
 
 import com.company.banko.domain.Person;
+import com.company.banko.model.CreatePersonRequest;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.service.PersonService;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,8 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createPerson(@RequestBody Person person) {
-        personService.insert(person);
+    public ResponseEntity<Object> createPerson(@RequestBody CreatePersonRequest createPersonRequest) {
+        personService.insert(createPersonRequest);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "Waiting to create account");
         map.put("result", "the Person is Create");

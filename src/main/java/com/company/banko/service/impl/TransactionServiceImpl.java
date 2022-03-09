@@ -48,11 +48,11 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setToAccount(depositRequest.getToAccount());
         transaction.setDescription(depositRequest.getDescription());
         transaction.setTransactionDate(depositRequest.getTransactionDate());
+
         FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
-        account.setTransactions((List<Transaction>) account.getBalance().add(transaction.getAmount()));
+        account.setBalance(account.getBalance().add(depositRequest.getAmount()));
+        account.addTransaction(transaction);
         FinancialAccount acc = financialAccountRepository.save(account);
-        transactionRepository.save(transaction);
-        transaction = transactionRepository.findTransactionById(transaction.getId());
         return true;
     }
 

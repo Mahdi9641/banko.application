@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
@@ -39,9 +40,13 @@ public class FinancialAccount {
     @JoinColumn(name = "Person_id")
     private Person person;
 
-    @OneToMany(mappedBy = "financialAccount", fetch = FetchType.LAZY)
-    private List<Transaction> transactions;
+    @OneToMany(cascade =CascadeType.ALL  , mappedBy = "financialAccount", fetch = FetchType.LAZY)
+    private List<Transaction> transactions = new ArrayList<>();
 
+    public void addTransaction(Transaction transaction){
+        transactions.add(transaction);
+        transaction.setFinancialAccount(this);
+    }
 
     @Override
     public String toString() {

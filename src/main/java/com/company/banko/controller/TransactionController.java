@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/banko/Transaction-Request")
+@RequestMapping("/banko/Transaction")
 public class TransactionController {
 
     @Autowired

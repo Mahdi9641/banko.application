@@ -52,7 +52,6 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
             throw new PersonAgeCustomExeption("The person has not reached the legal age");
         }
         financialAccount.setPerson(person);
-        System.out.println("financialAccount.toString()" + financialAccount.toString());
         financialAccount = financialAccountRepository.save(financialAccount);
         return financialAccount;
     }

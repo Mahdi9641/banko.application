@@ -8,8 +8,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-import java.util.Arrays;
-
 @Aspect
 @Component
 public class LoggingAspect {
@@ -41,14 +39,16 @@ public class LoggingAspect {
     }
 
 
-    // @Around("execution(* com.company.banko.service.impl.FinancialAccountServiceImpl.*(..))")
+    @AfterReturning(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", returning = "retVal")
+    public void logAfterReturningGetEmployee(Object retVal) throws Throwable {
+        System.out.println("****LoggingAspect.logAfterReturningGetPerson() ");
+        System.out.println(((Object) retVal).toString());
+    }
+
+
     @Around("@annotation(com.company.banko.CustomAnnotation.CustomLog)")
     public Object logFinancialAccountServiceMethodExecutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
-
-/*        if (methodSignature == null) {
-            throw new Exception("The method does not work");
-        }*/
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Object result = proceedingJoinPoint.proceed();
@@ -58,10 +58,10 @@ public class LoggingAspect {
                 + "." + methodSignature.getName() + " " // Method Name
                 + ":: " + stopWatch.getTotalTimeMillis() + " ms");
 
-/*        Object[] signatureArgs = proceedingJoinPoint.getArgs();
+        Object[] signatureArgs = proceedingJoinPoint.getArgs();
         for (Object signatureArg : signatureArgs) {
             System.out.println("Arg: " + signatureArg);
-        }*/
+        }
 
         return result;
     }

@@ -52,7 +52,6 @@ public class TransactionServiceImpl implements TransactionService {
         account.setTransactions((List<Transaction>) account.getBalance().add(transaction.getAmount()));
         FinancialAccount acc = financialAccountRepository.save(account);
         transactionRepository.save(transaction);
-        System.out.println("tr.toString() = " + transaction.toString());
         transaction = transactionRepository.findTransactionById(transaction.getId());
         return true;
     }

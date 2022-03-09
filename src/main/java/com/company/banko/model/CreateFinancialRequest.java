@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.StringJoiner;
 
 @Getter
 @Setter
@@ -25,8 +26,15 @@ public class CreateFinancialRequest {
 
     private Date creationDate;
 
-
-
-
-
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", CreateFinancialRequest.class.getSimpleName() + "[", "]")
+                .add("personId=" + personId)
+                .add("nationalNumber=" + nationalNumber)
+                .add("description='" + description + "'")
+                .add("balance=" + balance)
+                .add("accountNumber=" + accountNumber)
+                .add("creationDate=" + creationDate)
+                .toString();
+    }
 }

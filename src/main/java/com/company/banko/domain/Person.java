@@ -40,15 +40,6 @@ public class Person {
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private Set<FinancialAccount> financialAccounts;
 
-
-    public long getAge() {
-        return age;
-    }
-
-    public void setAge(long age) {
-        this.age = age;
-    }
-
     @Override
     public String toString() {
         return new StringJoiner(", ", Person.class.getSimpleName() + "[", "]")

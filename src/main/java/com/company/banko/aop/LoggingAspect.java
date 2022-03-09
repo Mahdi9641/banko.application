@@ -14,30 +14,17 @@ public class LoggingAspect {
 
     private static final org.apache.logging.log4j.Logger LOGGER = (org.apache.logging.log4j.Logger) LogManager.getLogger(LoggingAspect.class);
 
-    @Before("execution(* com.company.banko.service.impl.FinancialAccountServiceImpl.*(..))")
+    @Before("@annotation(com.company.banko.CustomAnnotation.CustomLog)")
     public void logBeforeAllMethods(final JoinPoint retyrnValue) {
 
         LOGGER.info(" FinancialAccount Logging AOP - Display the status before executing the method", retyrnValue);
     }
 
-    @Before("execution(* com.company.banko.service.impl.PersonServiceImpl.*(..))")
-    public void logBeforeMethods(final JoinPoint retyrnValue) {
-
-        LOGGER.info(" Person Logging AOP - Display the status before executing the method", retyrnValue);
-    }
-
-    @After("execution(* com.company.banko.service.impl.FinancialAccountServiceImpl.*(..))")
+    @After("@annotation(com.company.banko.CustomAnnotation.CustomLog)")
     public void logAfterAllMethods(final JoinPoint retyrnValue) {
 
         LOGGER.info(" FinancialAccount Logging AOP - Display the status after executing the method", retyrnValue);
     }
-
-    @After("execution(* com.company.banko.service.impl.PersonServiceImpl.*(..))")
-    public void logAfterMethods(final JoinPoint retyrnValue) {
-
-        LOGGER.info(" Person Logging AOP - Display the status after executing the method", retyrnValue);
-    }
-
 
     @AfterReturning(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", returning = "retVal")
     public void logAfterReturningGetEmployee(Object retVal) throws Throwable {

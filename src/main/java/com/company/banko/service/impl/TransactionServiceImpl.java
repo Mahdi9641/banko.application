@@ -40,15 +40,14 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @CustomLog
     public boolean insert(DepositRequest depositRequest) throws Exception {
-        DepositRequest depositRequest1 = new DepositRequest();
         Transaction transaction = new Transaction();
-        transaction.setAmount(transaction.getAmount());
-        if (transaction.getAmount() == null) {
+        transaction.setAmount(depositRequest.getAmount());
+        if (depositRequest.getAmount() == null) {
             throw new TransactionAmountCustomExeption("The amount can not be empty");
         }
-        transaction.setToAccount(transaction.getToAccount());
-        transaction.setDescription(transaction.getDescription());
-        transaction.setTransactionDate(transaction.getTransactionDate());
+        transaction.setToAccount(depositRequest.getToAccount());
+        transaction.setDescription(depositRequest.getDescription());
+        transaction.setTransactionDate(depositRequest.getTransactionDate());
         FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
         account.setTransactions((List<Transaction>) account.getBalance().add(transaction.getAmount()));
         FinancialAccount acc = financialAccountRepository.save(account);

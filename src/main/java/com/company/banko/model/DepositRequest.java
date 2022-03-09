@@ -16,6 +16,8 @@ public class DepositRequest {
 
     private String description;
 
+    private String toAccount;
+
     private Date transactionDate;
 
     private BigDecimal amount;

@@ -28,7 +28,7 @@ public class LoggingAspect {
 
     @AfterReturning(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", returning = "retVal")
     public void logAfterReturningGetEmployee(Object retVal) throws Throwable {
-        System.out.println("****LoggingAspect.logAfterReturningGetPerson() ");
+        System.out.println("****LoggingAspect.logAfterReturning");
         System.out.println(((Object) retVal).toString());
     }
 

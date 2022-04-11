@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.StringJoiner;
         @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Name")})
 public class FinancialAccount extends AbstractPersistableCustom implements Serializable {
 
+    @Size(max = 2)
     @Column(name = "accountNumber", nullable = false)
     private Long accountNumber;
 

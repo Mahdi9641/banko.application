@@ -1,10 +1,11 @@
 package com.company.banko.model;
 
+import com.company.banko.CustomAnnotation.NationalNumberValidation;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.StringJoiner;
 
@@ -17,14 +18,20 @@ public class CreatePersonRequest {
 
     private long id;
 
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String lastName;
 
+    @NotNull
     private long age;
 
-    private long nationalNumber;
+    @NotNull
+    @NationalNumberValidation
+    private String nationalNumber;
 
+    @NotNull
     private Date birthDate;
 
     @Override

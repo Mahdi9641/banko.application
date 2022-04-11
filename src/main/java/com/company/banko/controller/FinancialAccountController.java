@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class FinancialAccountController {
     }
 
     @PostMapping(path = "/account/createFinancialAccount")
-    private ResponseEntity<Object> createFinancialAccount(@RequestBody CreateFinancialRequest createFinancialRequest) throws Exception {
+    private ResponseEntity<Object> createFinancialAccount(@Valid @RequestBody CreateFinancialRequest createFinancialRequest) throws Exception {
         financialAccountService.insert(createFinancialRequest);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "active");

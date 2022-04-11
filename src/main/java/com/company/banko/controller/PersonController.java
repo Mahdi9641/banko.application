@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createPerson(@RequestBody CreatePersonRequest createPersonRequest) {
+    public ResponseEntity<Object> createPerson(@Valid @RequestBody CreatePersonRequest createPersonRequest) {
         personService.insert(createPersonRequest);
         Map<String, Object> map = new HashMap<>();
         map.put("status", "Waiting to create account");

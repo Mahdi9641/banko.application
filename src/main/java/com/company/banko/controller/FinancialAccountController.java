@@ -1,9 +1,11 @@
 package com.company.banko.controller;
 
+import com.company.banko.config.HeaderUtil;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.model.CreateFinancialRequest;
 import com.company.banko.service.FinancialAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,16 @@ import java.util.Map;
 @RequestMapping("/banko")
 public class FinancialAccountController {
 
+    private static final String ENTITY_NAME = "financialAccount";
     @Autowired
     private FinancialAccountService financialAccountService;
+    @Value("${banko.clientApp.name}")
+    private String applicationName;
 
     @GetMapping(path = "/account/getFinancialAccount")
     public ResponseEntity<List<FinancialAccount>> getFinancialAccounts() {
         List<FinancialAccount> financialAccounts = financialAccountService.findAll();
-        return new ResponseEntity<>(financialAccounts , HttpStatus.OK);
+        return new ResponseEntity<>(financialAccounts, HttpStatus.OK);
     }
 
     @PostMapping(path = "/account/createFinancialAccount")
@@ -34,11 +39,12 @@ public class FinancialAccountController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(path = "/account/deleteFinancialAccount/{financialAccountNumber}")
-    private ResponseEntity<FinancialAccount> deleteFinancialAccount(@PathVariable Long financialAccountNumber) {
-        financialAccountService.delete(financialAccountNumber);
-        return ResponseEntity.noContent()
-                .build();
+    @DeleteMapping(path = "/account/deleteFinancialAccount/{id}")
+    private ResponseEntity<FinancialAccount> deleteFinancialAccount(@PathVariable Long id) {
+        financialAccountService.delete(id);
+     /*   return ResponseEntity.noContent()
+                .build();*/
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
 }

@@ -12,24 +12,26 @@ import org.springframework.util.StopWatch;
 @Component
 public class LoggingAspect {
 
-    private static final org.apache.logging.log4j.Logger LOGGER = (org.apache.logging.log4j.Logger) LogManager.getLogger(LoggingAspect.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(LoggingAspect.class);
 
     @Before("@annotation(com.company.banko.CustomAnnotation.CustomLog)")
     public void logBeforeAllMethods(final JoinPoint retyrnValue) {
 
-        LOGGER.info(" FinancialAccount Logging AOP - Display the status before executing the method", retyrnValue);
+        log.info(" FinancialAccount Logging AOP - Display the status before executing the method", retyrnValue);
     }
 
     @After("@annotation(com.company.banko.CustomAnnotation.CustomLog)")
     public void logAfterAllMethods(final JoinPoint retyrnValue) {
 
-        LOGGER.info(" FinancialAccount Logging AOP - Display the status after executing the method", retyrnValue);
+        log.info(" FinancialAccount Logging AOP - Display the status after executing the method", retyrnValue);
     }
 
     @AfterReturning(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", returning = "retVal")
     public void logAfterReturningGetEmployee(Object retVal) throws Throwable {
         System.out.println("****LoggingAspect.logAfterReturning");
-        System.out.println(((Object) retVal).toString());
+        if (retVal != null) {
+            System.out.println(((Object) retVal).toString());
+        }
     }
 
 
@@ -40,7 +42,7 @@ public class LoggingAspect {
         stopWatch.start();
         Object result = proceedingJoinPoint.proceed();
         stopWatch.stop();
-        LOGGER.info(" FinancialAccount Logging AOP - Execution time of "
+        log.info(" FinancialAccount Logging AOP - Execution time of "
                 + methodSignature.getDeclaringType().getSimpleName() // Class Name
                 + "." + methodSignature.getName() + " " // Method Name
                 + ":: " + stopWatch.getTotalTimeMillis() + " ms");
@@ -55,6 +57,6 @@ public class LoggingAspect {
 
     @AfterThrowing(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", throwing = "ex")
     public void logAfterThrowingAllMethods(Exception ex) throws Throwable {
-        LOGGER.info("****LoggingAspect.logAfterThrowingAllMethods() " + ex);
+        log.info("****LoggingAspect.logAfterThrowingAllMethods() " + ex);
     }
 }

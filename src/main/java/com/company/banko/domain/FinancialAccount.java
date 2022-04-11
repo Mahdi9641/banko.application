@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,23 +17,21 @@ import java.util.StringJoiner;
 @NoArgsConstructor
 
 @Entity
-public class FinancialAccount {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "Financial_Account_sequence")
+@Table(name = "FinancialAccount", uniqueConstraints = {@UniqueConstraint(columnNames = {"accountNumber"}, name = "account_Number"),
+        @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Name")})
+public class FinancialAccount extends AbstractPersistableCustom implements Serializable {
 
-    @Column(name = "id")
-    private long id;
+    @Column(name = "accountNumber", nullable = false)
+    private Long accountNumber;
 
-    @Column(name = "accountNumber")
-    private long accountNumber;
-
-    @Column(name = "balance")
+    @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -40,10 +39,10 @@ public class FinancialAccount {
     @JoinColumn(name = "Person_id")
     private Person person;
 
-    @OneToMany(cascade =CascadeType.ALL  , mappedBy = "financialAccount", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "financialAccount", fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         transaction.setFinancialAccount(this);
     }

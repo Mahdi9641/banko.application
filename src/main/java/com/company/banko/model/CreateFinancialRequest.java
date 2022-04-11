@@ -1,5 +1,6 @@
 package com.company.banko.model;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,12 +17,14 @@ public class CreateFinancialRequest {
 
     private long personId;
 
+    @NotNull
     private long nationalNumber;
 
     private String description;
 
     private BigDecimal balance;
 
+    @NotNull
     private long accountNumber;
 
     private Date creationDate;

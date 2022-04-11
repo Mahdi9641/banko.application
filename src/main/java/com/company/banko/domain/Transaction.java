@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.StringJoiner;
@@ -13,25 +14,22 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "Transaction_sequence")
+@Table(name = "Transaction")
+public class Transaction extends AbstractPersistableCustom implements Serializable {
 
-    @Column(name = "id")
-    private long id;
-
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "transactionDate")
+    @Column(name = "transactionDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date transactionDate;
 
-    @Column(name = "toAccount")
-    private String toAccount;
+    @Column(name = "toAccount", nullable = false)
+    private long toAccount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FinancialAccount_id")

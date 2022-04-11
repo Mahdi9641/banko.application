@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -13,27 +14,23 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Person {
+@SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "Person_sequence")
+@Table(name = "Person", uniqueConstraints = {@UniqueConstraint(columnNames = {"nationalNumber"}, name = "national_Number_UNIQUE")})
+public class Person extends AbstractPersistableCustom implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name = "id")
-    private long id;
-
-    @Column(name = "firstName")
+    @Column(name = "firstName", nullable = false, length = 100)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastName", nullable = false, length = 100)
     private String lastName;
 
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
     private long age;
 
-    @Column(name = "nationalNumber")
+    @Column(name = "nationalNumber", nullable = false)
     private long nationalNumber;
 
-    @Column(name = "birthDate")
+    @Column(name = "birthDate", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 

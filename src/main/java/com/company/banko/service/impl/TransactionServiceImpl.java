@@ -3,7 +3,7 @@ package com.company.banko.service.impl;
 import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Transaction;
-import com.company.banko.exeptions.TransactionAmountCustomExeption;
+import com.company.banko.exeptions.CustomExeption;
 import com.company.banko.model.DepositRequest;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.TransactionRepository;
@@ -43,15 +43,17 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = new Transaction();
         transaction.setAmount(depositRequest.getAmount());
         if (depositRequest.getAmount() == null) {
-            throw new TransactionAmountCustomExeption("The amount can not be empty");
+            throw new CustomExeption("The amount can not be empty");
+        }
+        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
+        if (account == null){
+            throw new CustomExeption("account not found");
         }
         transaction.setToAccount(depositRequest.getToAccount());
-        transaction.setDescription(depositRequest.getDescription());
-        transaction.setTransactionDate(depositRequest.getTransactionDate());
-
-        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
         account.setBalance(account.getBalance().add(depositRequest.getAmount()));
         account.addTransaction(transaction);
+        transaction.setDescription(depositRequest.getDescription());
+        transaction.setTransactionDate(depositRequest.getTransactionDate());
         FinancialAccount acc = financialAccountRepository.save(account);
         return true;
     }

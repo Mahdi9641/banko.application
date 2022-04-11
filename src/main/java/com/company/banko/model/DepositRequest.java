@@ -1,5 +1,7 @@
 package com.company.banko.model;
 
+import com.company.banko.domain.FinancialAccount;
+import com.company.banko.exeptions.CustomExeption;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +19,7 @@ public class DepositRequest {
 
     private String description;
 
-    private String toAccount;
+    private long toAccount;
 
     private Date transactionDate;
 
@@ -32,5 +34,14 @@ public class DepositRequest {
                 .add("transactionDate=" + transactionDate)
                 .add("amount=" + amount)
                 .toString();
+    }
+
+    public long to_account(long accountNumber) throws Exception {
+        FinancialAccount account = new FinancialAccount();
+        account.getAccountNumber();
+        if (account.getAccountNumber() != to_account(toAccount)){
+            throw new CustomExeption("the account does not exist");
+        }
+        return accountNumber;
     }
 }

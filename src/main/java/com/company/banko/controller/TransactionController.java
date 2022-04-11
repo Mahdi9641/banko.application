@@ -21,11 +21,10 @@ public class TransactionController {
     private TransactionService transactionService;
 
 
-
     @GetMapping
     private ResponseEntity<List<Transaction>> getTransaction() {
         List<Transaction> transactions = transactionService.findall();
-        return new ResponseEntity<>(transactions,HttpStatus.OK);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
     @PostMapping

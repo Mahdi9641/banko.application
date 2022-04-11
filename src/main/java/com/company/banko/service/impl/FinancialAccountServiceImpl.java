@@ -3,7 +3,7 @@ package com.company.banko.service.impl;
 import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
-import com.company.banko.exeptions.PersonAgeCustomExeption;
+import com.company.banko.exeptions.CustomExeption;
 import com.company.banko.model.CreateFinancialRequest;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.PersonRepository;
@@ -49,7 +49,7 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
         financialAccount.setAccountNumber(createFinancialRequest.getAccountNumber());
         Person person = personRepository.findPersonByNationalNumber(createFinancialRequest.getNationalNumber());
         if (person.getAge() < 18) {
-            throw new PersonAgeCustomExeption("The person has not reached the legal age");
+            throw new CustomExeption("The person has not reached the legal age");
         }
         financialAccount.setPerson(person);
         financialAccount = financialAccountRepository.save(financialAccount);
@@ -58,7 +58,7 @@ public class FinancialAccountServiceImpl implements FinancialAccountService {
 
     @Override
     @CustomLog
-    public void delete(Long financialAccountNumber) {
-        financialAccountRepository.deleteFinancialAccountByAccountNumber(financialAccountNumber);
+    public void delete(Long id) {
+        financialAccountRepository.deleteById(id);
     }
 }

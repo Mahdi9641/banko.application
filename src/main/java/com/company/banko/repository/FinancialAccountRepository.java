@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface FinancialAccountRepository extends JpaRepository<FinancialAccount, Long> {
 
     FinancialAccount findByAccountNumber(long accountNumber);
-
-    FinancialAccount deleteFinancialAccountByAccountNumber(long accountNumber);
 }

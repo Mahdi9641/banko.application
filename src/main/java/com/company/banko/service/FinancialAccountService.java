@@ -12,5 +12,5 @@ public interface FinancialAccountService {
 
     FinancialAccount insert(CreateFinancialRequest createFinancialRequest) throws Exception;
 
-    void delete(Long financialAccountNumber);
+    void delete(Long id);
 }

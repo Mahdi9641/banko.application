@@ -45,8 +45,8 @@ public class TransactionServiceImpl implements TransactionService {
         if (depositRequest.getAmount() == null) {
             throw new CustomExeption("The amount can not be empty");
         }
-        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getAccountNumber());
-        if (account == null){
+        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getFromAccount());
+        if (account == null) {
             throw new CustomExeption("account not found");
         }
         transaction.setToAccount(depositRequest.getToAccount());

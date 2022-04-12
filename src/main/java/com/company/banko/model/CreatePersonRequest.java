@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.StringJoiner;

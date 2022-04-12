@@ -11,7 +11,7 @@ public class NationalNumberIdentification implements ConstraintValidator<Nationa
 }
 
     @Override
-    public void initialize(NationalNumberValidation contactNumber) {
+    public void initialize(NationalNumberValidation nationalNumber) {
     }
 
     @Override

@@ -40,7 +40,7 @@ public class PersonController {
         Map<String, Object> map = new HashMap<>();
         map.put("status", "Waiting to create account");
         map.put("result", "the Person is Create");
-        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 

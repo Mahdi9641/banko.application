@@ -1,5 +1,6 @@
 package com.company.banko.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +32,8 @@ public class Transaction extends AbstractPersistableCustom implements Serializab
     @Column(name = "toAccount", nullable = false)
     private long toAccount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FinancialAccount_id")
     private FinancialAccount financialAccount;
 

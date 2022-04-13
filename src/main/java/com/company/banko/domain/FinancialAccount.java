@@ -1,5 +1,6 @@
 package com.company.banko.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +37,8 @@ public class FinancialAccount extends AbstractPersistableCustom implements Seria
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Person_id")
     private Person person;
 

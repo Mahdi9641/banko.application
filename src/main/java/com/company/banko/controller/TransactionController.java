@@ -36,9 +36,8 @@ public class TransactionController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-
     @DeleteMapping(path = "/transaction/deleteTransaction/{transactionId}")
-    public ResponseEntity<Transaction> deleteTransaction(@RequestBody long transactionId) {
+    public ResponseEntity<Transaction> deleteTransaction(@PathVariable long transactionId) {
         transactionService.delete(transactionId);
         return ResponseEntity.noContent()
                 .build();

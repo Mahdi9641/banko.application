@@ -23,7 +23,6 @@ import java.util.StringJoiner;
         @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Date")})
 public class FinancialAccount extends AbstractPersistableCustom implements Serializable {
 
-    @Size(max = 2)
     @Column(name = "accountNumber", nullable = false)
     private Long accountNumber;
 

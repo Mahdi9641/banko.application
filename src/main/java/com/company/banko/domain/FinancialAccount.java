@@ -38,7 +38,7 @@ public class FinancialAccount extends AbstractPersistableCustom implements Seria
     private Date creationDate;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Person_id")
     private Person person;
 

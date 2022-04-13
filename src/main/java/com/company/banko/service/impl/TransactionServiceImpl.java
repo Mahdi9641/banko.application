@@ -31,6 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
+    @CustomLog
     public List<Transaction> findall() {
         transactionRepository.findAll();
         return transactionRepository.findAll();

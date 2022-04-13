@@ -33,7 +33,7 @@ public class Transaction extends AbstractPersistableCustom implements Serializab
     private long toAccount;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FinancialAccount_id")
     private FinancialAccount financialAccount;
 

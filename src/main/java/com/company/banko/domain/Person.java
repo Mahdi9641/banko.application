@@ -37,7 +37,7 @@ public class Person extends AbstractPersistableCustom implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private Set<FinancialAccount> financialAccounts;
 
     @Override

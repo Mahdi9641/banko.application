@@ -20,7 +20,7 @@ import java.util.StringJoiner;
 @Entity
 @SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "Financial_Account_sequence")
 @Table(name = "FinancialAccount", uniqueConstraints = {@UniqueConstraint(columnNames = {"accountNumber"}, name = "account_Number"),
-        @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Name")})
+        @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Date")})
 public class FinancialAccount extends AbstractPersistableCustom implements Serializable {
 
     @Size(max = 2)

@@ -1,23 +1,25 @@
 package com.company.banko.service.impl;
 
 import com.company.banko.CustomAnnotation.CustomLog;
+import com.company.banko.domain.AccountTransactionType;
 import com.company.banko.domain.FinancialAccount;
+import com.company.banko.domain.FinancialAccountStatusType;
 import com.company.banko.domain.Transaction;
-import com.company.banko.exeptions.CustomExeption;
-import com.company.banko.model.DepositRequest;
+import com.company.banko.exeptions.SavingsAccountBlockedException;
+import com.company.banko.exeptions.SavingsAccountNotFoundException;
+import com.company.banko.model.AccountTransactionDTO;
 import com.company.banko.repository.FinancialAccountRepository;
 import com.company.banko.repository.TransactionRepository;
-import com.company.banko.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
-@Transactional
-public class TransactionServiceImpl implements TransactionService {
+public class TransactionServiceImpl {
 
 
     private final TransactionRepository transactionRepository;
@@ -29,44 +31,110 @@ public class TransactionServiceImpl implements TransactionService {
         this.financialAccountRepository = financialAccountRepository;
     }
 
-
-    @Override
     @CustomLog
-    public List<Transaction> findall() {
+    public List<Transaction> findAll() {
         transactionRepository.findAll();
         return transactionRepository.findAll();
     }
 
-
-    @Override
     @CustomLog
-    public boolean insert(DepositRequest depositRequest) throws Exception {
+    public void delete(Long id) {
+        transactionRepository.deleteById(id);
+    }
+
+
+    @Transactional
+    @CustomLog
+    public Transaction handleDeposit(Long savingsId, AccountTransactionDTO accountTransactionDTO) {
+
+        if (!financialAccountRepository.existsById(savingsId)) {
+            throw new SavingsAccountNotFoundException("Savings account not found", savingsId.toString(), "idnotfound");
+        }
+        Transaction transaction;
+        Optional<FinancialAccount> retFinancialAccount = financialAccountRepository.findById(savingsId);
+        if (retFinancialAccount.isPresent()) {
+            FinancialAccount financialAccount = retFinancialAccount.get();
+            validateForAccountBlock(financialAccount);
+
+            transaction = new Transaction();
+            transaction.setFinancialAccount(financialAccount);
+            transaction.setId(accountTransactionDTO.getId());
+            transaction.setAmount(accountTransactionDTO.getAmount());
+            transaction.setTransactionType(AccountTransactionType.DEPOSIT);
+            transaction.setDescription(accountTransactionDTO.getDescription());
+            transaction.setTransactionDate(accountTransactionDTO.getDateOf());
+            transaction = transactionRepository.save(transaction);
+
+            financialAccount.setBalance(accountTransactionDTO.getAmount().add(financialAccount.getBalance()));
+            financialAccountRepository.save(financialAccount);
+
+
+        } else {
+            throw new SavingsAccountNotFoundException("Savings account not found", savingsId.toString(), "accountnotfound");
+        }
+        return transaction;
+    }
+
+
+    @Transactional
+    @CustomLog
+    public Transaction handleWithdraw(Long savingsId, AccountTransactionDTO accountTransactionDTO) {
+        if (!financialAccountRepository.existsById(savingsId)) {
+            throw new SavingsAccountNotFoundException("Savings account not found", savingsId.toString(), "idnotfound");
+        }
+
+        Transaction transaction;
+
+        Optional<FinancialAccount> retFinancialAccount = financialAccountRepository.findById(savingsId);
+        if (retFinancialAccount.isPresent()) {
+            FinancialAccount financialAccount = retFinancialAccount.get();
+            validateForAccountBlock(financialAccount);
+
+            transaction = new Transaction();
+            transaction.setFinancialAccount(financialAccount);
+//            transaction.setId(accountTransactionDTO.getId());
+            transaction.setAmount(accountTransactionDTO.getAmount());
+            transaction.setTransactionType(AccountTransactionType.WITHDRAWAL);
+            transaction.setDescription(accountTransactionDTO.getDescription());
+            transaction.setTransactionDate(accountTransactionDTO.getDateOf());
+
+            transaction = transactionRepository.save(transaction);
+
+            financialAccount.setBalance(financialAccount.getBalance().subtract(accountTransactionDTO.getAmount()));
+            financialAccountRepository.save(financialAccount);
+
+
+        } else {
+            throw new SavingsAccountNotFoundException("Savings account not found", savingsId.toString(), "accountnotfound");
+        }
+        return transaction;
+    }
+
+    private void validateForAccountBlock(FinancialAccount financialAccount) {
+        final FinancialAccountStatusType currentStatus = financialAccount.getStatus();
+        if (FinancialAccountStatusType.BLOCK.equals(currentStatus)) {
+            throw new SavingsAccountBlockedException("Savings account blocked", financialAccount.getId().toString(), "accountblocked");
+        }
+    }
+
+
+    Transaction fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
         Transaction transaction = new Transaction();
-        transaction.setAmount(depositRequest.getAmount());
-        if (depositRequest.getAmount() == null) {
-            throw new CustomExeption("The amount can not be empty");
-        }
-        FinancialAccount account = financialAccountRepository.findByAccountNumber(depositRequest.getFromAccount());
-        if (account == null) {
-            throw new CustomExeption("account not found");
-        }
-        transaction.setToAccount(depositRequest.getToAccount());
-        account.setBalance(account.getBalance().add(depositRequest.getAmount()));
-        account.addTransaction(transaction);
-        transaction.setDescription(depositRequest.getDescription());
-        transaction.setTransactionDate(depositRequest.getTransactionDate());
-        FinancialAccount acc = financialAccountRepository.save(account);
-        return true;
+        transaction.setId(id);
+        return transaction;
     }
 
-    @Override
-    public Transaction update(Transaction transaction) {
-        return null;
-    }
-
-    @Override
-    @CustomLog
-    public void delete(Long transactionId) {
-        transactionRepository.deleteById(transactionId);
+    Transaction toId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Transaction transaction = new Transaction();
+        transaction.setId(id);
+        return transaction;
     }
 }
+
+

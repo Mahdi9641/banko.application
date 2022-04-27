@@ -29,13 +29,20 @@ public class Transaction extends AbstractPersistableCustom implements Serializab
     @Temporal(TemporalType.TIMESTAMP)
     private Date transactionDate;
 
-    @Column(name = "toAccount", nullable = false)
-    private long toAccount;
+    @Column(name = "transaction_type")
+    @Enumerated(EnumType.STRING)
+    private AccountTransactionType transactionType;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FinancialAccount_id")
     private FinancialAccount financialAccount;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Person_id")
+    private Person person;
+
 
     @Override
     public String toString() {
@@ -44,7 +51,6 @@ public class Transaction extends AbstractPersistableCustom implements Serializab
                 .add("deposit=" + amount)
                 .add("description='" + description + "'")
                 .add("transactionDate=" + transactionDate)
-                .add("toAccount='" + toAccount + "'")
                 .toString();
     }
 }

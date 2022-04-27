@@ -6,23 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.StringJoiner;
 
 @Getter
 @Setter
 @NoArgsConstructor
-
 @Entity
 @SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "Financial_Account_sequence")
 @Table(name = "FinancialAccount", uniqueConstraints = {@UniqueConstraint(columnNames = {"accountNumber"}, name = "account_Number"),
         @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Date")})
-public class FinancialAccount extends AbstractPersistableCustom implements Serializable {
+public class FinancialAccount implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence-generator")
+    public Long id;
 
     @Column(name = "accountNumber", nullable = false)
     private Long accountNumber;
@@ -37,6 +38,10 @@ public class FinancialAccount extends AbstractPersistableCustom implements Seria
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private FinancialAccountStatusType status;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Person_id")
@@ -50,16 +55,11 @@ public class FinancialAccount extends AbstractPersistableCustom implements Seria
         transaction.setFinancialAccount(this);
     }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", FinancialAccount.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("accountNumber=" + accountNumber)
-                .add("balance=" + balance)
-                .add("description='" + description + "'")
-                .add("creationDate=" + creationDate)
-                .add("person=" + person)
-                .add("transactions=" + transactions)
-                .toString();
+    public void validateForAccountBlock() {
+        final FinancialAccountStatusType currentStatus = this.getStatus();
+        if (FinancialAccountStatusType.BLOCK.equals(currentStatus)) {
+            //throw new SavingsAccountBlockedException(this.getId());
+        }
     }
+
 }

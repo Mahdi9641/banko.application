@@ -5,11 +5,11 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StopWatch;
 
 @Aspect
-@Component
+@Configuration
 public class LoggingAspect {
 
     private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(LoggingAspect.class);
@@ -27,7 +27,7 @@ public class LoggingAspect {
     }
 
     @AfterReturning(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", returning = "retVal")
-    public void logAfterReturningGetEmployee(Object retVal) throws Throwable {
+    public void logAfterReturningGet(Object retVal) throws Throwable {
         System.out.println("****LoggingAspect.logAfterReturning");
         if (retVal != null) {
             System.out.println(((Object) retVal).toString());

@@ -41,7 +41,7 @@ public class TransferController {
         transferService.handletransferFunds(accountTransferDTO);
         Map<String, Object> map = new HashMap<>();
         map.put("TYPE", "DEPOSIT");
-        map.put("RESULT", "The amount was deposit from account ID  " + accountTransferDTO.getFromAccountId() +  "  to the account ID  " + accountTransferDTO.getToAccountId());
+        map.put("RESULT", " The amount was deposit of  " + accountTransferDTO.getTransactionAmount() +"  from account ID  " + accountTransferDTO.getFromAccountId() +  "  to the account ID  " + accountTransferDTO.getToAccountId());
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 

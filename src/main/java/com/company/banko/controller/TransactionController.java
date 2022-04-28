@@ -66,7 +66,6 @@ public class TransactionController {
         }
 
         Transaction result = transactionService.handleWithdraw(savingsId, accountTransactionDTO);
-       // accountTransactionDTO.setId(result.id);
         accountTransactionDTO.setTransactionType(result.getTransactionType());
         accountTransactionDTO.setAmount(result.getAmount());
         accountTransactionDTO.setDescription(result.getDescription());

@@ -92,7 +92,6 @@ public class TransactionServiceImpl {
 
             transaction = new Transaction();
             transaction.setFinancialAccount(financialAccount);
-//            transaction.setId(accountTransactionDTO.getId());
             transaction.setAmount(accountTransactionDTO.getAmount());
             transaction.setTransactionType(AccountTransactionType.WITHDRAWAL);
             transaction.setDescription(accountTransactionDTO.getDescription());

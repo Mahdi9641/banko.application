@@ -19,18 +19,23 @@ public class PersonDTO implements Serializable {
     private Long id;
 
 
+    @NotNull
     private String firstName;
 
-
+    @NotNull
     private String lastName;
 
-
+    @NotNull
     private String middlename;
 
+    @NotNull
+    private long age;
 
+
+    @NotNull
     private String mobileNo;
 
-
+    @NotNull
     private String emailAddress;
 
 
@@ -38,14 +43,9 @@ public class PersonDTO implements Serializable {
     @NationalNumberValidation
     private String nationalNumber;
 
-
-    private long age;
-
-
+    @NotNull
     private Date birthDate;
 
-
-    private Long personId;
 
 
 }

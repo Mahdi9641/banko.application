@@ -17,6 +17,7 @@ public class AccountDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private long personId;
 
     @NotNull

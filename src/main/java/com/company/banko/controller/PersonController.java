@@ -33,7 +33,7 @@ public class PersonController {
         this.personRepository = partyRepository;
     }
 
-    @GetMapping
+    @GetMapping("/person")
     public List<Person> getAllClients() {
         return personService.findAll();
     }

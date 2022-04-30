@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class FinancialAccount implements Serializable {
     private Long accountNumber;
 
     @Column(name = "balance", nullable = false)
+    @Check(constraints = "available_count >= 0")
     private BigDecimal balance;
 
     @Column(name = "description", nullable = false)

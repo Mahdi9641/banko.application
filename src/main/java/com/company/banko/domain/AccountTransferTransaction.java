@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class AccountTransferTransaction extends AbstractPersistableCustom implem
     private Date date;
 
     @Column(name = "amount", scale = 6, precision = 19, nullable = false)
+    @Check(constraints = "available_count >= 0")
     private BigDecimal amount;
 
     @Column(name = "description", length = 100)

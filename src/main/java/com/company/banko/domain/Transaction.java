@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import java.util.StringJoiner;
 public class Transaction extends AbstractPersistableCustom implements Serializable {
 
     @Column(name = "amount", nullable = false)
+    @Check(constraints = "available_count >= 0")
     private BigDecimal amount;
 
     @Column(name = "description", nullable = false)

@@ -2,6 +2,7 @@ package com.company.banko.controller;
 
 import com.company.banko.config.HeaderUtil;
 import com.company.banko.domain.FinancialAccount;
+import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.AccountDTO;
 import com.company.banko.service.impl.FinancialAccountServiceImpl;
@@ -27,8 +28,9 @@ public class FinancialAccountController {
     private String applicationName;
 
     @GetMapping(path = "/account/getFinancialAccount")
-    public List<FinancialAccount> getAllSavingsAccounts() {
-        return financialAccountService.findAll();
+    public ResponseEntity <List<FinancialAccount>> getAllSavingsAccounts() {
+        List<FinancialAccount> financialAccounts = financialAccountService.findAll();
+        return new ResponseEntity<>(financialAccounts, HttpStatus.OK);
     }
 
     @PostMapping(path = "/account/createFinancialAccount")

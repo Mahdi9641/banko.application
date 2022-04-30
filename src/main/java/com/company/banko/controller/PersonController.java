@@ -2,12 +2,14 @@ package com.company.banko.controller;
 
 
 import com.company.banko.config.HeaderUtil;
+import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.PersonDTO;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +36,9 @@ public class PersonController {
     }
 
     @GetMapping("/person")
-    public List<Person> getAllClients() {
-        return personService.findAll();
+    public ResponseEntity <List<Person>> getAllClients() {
+        List<Person> personList = personService.findAll();
+        return new ResponseEntity<>(personList, HttpStatus.OK);
     }
 
     @PostMapping

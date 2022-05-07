@@ -11,7 +11,9 @@ import com.company.banko.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -34,7 +36,8 @@ public class FinancialAccountServiceImpl {
     @CustomLog
     public List<FinancialAccount> findAll() {
         financialAccountRepository.findAll();
-        return financialAccountRepository.findAll();
+        return financialAccountRepository.findAll().stream()
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @CustomLog

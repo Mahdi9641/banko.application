@@ -35,7 +35,7 @@ public class PersonController {
         this.personRepository = partyRepository;
     }
 
-    @GetMapping("/person")
+    @GetMapping
     public ResponseEntity <List<Person>> getAllClients() {
         List<Person> personList = personService.findAll();
         return new ResponseEntity<>(personList, HttpStatus.OK);
@@ -52,7 +52,7 @@ public class PersonController {
                 .body(result);
     }
 
-    @PutMapping("/clients")
+    @PutMapping
     public ResponseEntity<PersonDTO> updateClient(@Valid @RequestBody PersonDTO personDTO) throws URISyntaxException {
         if (personDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

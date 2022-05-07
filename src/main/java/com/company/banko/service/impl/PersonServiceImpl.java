@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,8 +26,9 @@ public class PersonServiceImpl {
 
     @CustomLog
     public List<Person> findAll() {
-        personRepository.findAll();
-        return personRepository.findAll();
+        return personRepository.findAll().stream()
+                .collect(Collectors.toCollection(LinkedList::new));
+
     }
 
 

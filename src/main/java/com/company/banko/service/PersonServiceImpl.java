@@ -1,4 +1,4 @@
-package com.company.banko.service.impl;
+package com.company.banko.service;
 
 import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.Person;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl {
 
     private final PersonRepository personRepository;
+    private final OfficeService officeService;
 
     @Autowired
-    public PersonServiceImpl(PersonRepository personRepository) {
+    public PersonServiceImpl(PersonRepository personRepository, OfficeService officeService) {
         this.personRepository = personRepository;
+        this.officeService = officeService;
     }
 
 
@@ -28,13 +31,18 @@ public class PersonServiceImpl {
     public List<Person> findAll() {
         return personRepository.findAll().stream()
                 .collect(Collectors.toCollection(LinkedList::new));
+    }
 
+    @CustomLog
+    public Optional<Person> findOne(Long id) {
+        return personRepository.findById(id);
     }
 
 
     @CustomLog
     public PersonDTO save(PersonDTO personDTO) {
         Person person = new Person();
+        person.setOffice(officeService.fromId(personDTO.getOfficeId()));
         person.setFirstName(personDTO.getFirstName());
         person.setMiddlename(personDTO.getMiddlename());
         person.setLastName(personDTO.getLastName());
@@ -48,12 +56,11 @@ public class PersonServiceImpl {
     }
 
     public PersonDTO update(PersonDTO personDTO) {
-        Person person = new Person();
+        Person person = personRepository.findPersonByNationalNumber(personDTO.getNationalNumber());
         person.setFirstName(personDTO.getFirstName());
         person.setMiddlename(personDTO.getMiddlename());
         person.setLastName(personDTO.getLastName());
         person.setAge(personDTO.getAge());
-        person.setNationalNumber(personDTO.getNationalNumber());
         person.setBirthDate(personDTO.getBirthDate());
         person.setEmailAddress(personDTO.getEmailAddress());
         person.setMobileNo(personDTO.getMobileNo());

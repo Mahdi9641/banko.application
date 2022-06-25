@@ -1,4 +1,4 @@
-package com.company.banko.service.impl;
+package com.company.banko.service;
 
 import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.AccountTransactionType;
@@ -65,7 +65,7 @@ public class TransferServiceImpl {
         toAccountTransactionDTO.setDateOf(accountTransferDTO.getTransactionDate());
         toAccountTransactionDTO.setDescription(accountTransferDTO.getDescription());
         Transaction toSavingsAccount = transactionService.handleDeposit(accountTransferDTO.getToAccountId(), toAccountTransactionDTO);
-        ;
+
 
         AccountTransferTransaction accountTransferTransaction = new AccountTransferTransaction();
         accountTransferTransaction.setDate(accountTransferDTO.getTransactionDate());

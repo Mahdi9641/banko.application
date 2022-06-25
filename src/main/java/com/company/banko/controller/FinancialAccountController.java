@@ -2,10 +2,9 @@ package com.company.banko.controller;
 
 import com.company.banko.config.HeaderUtil;
 import com.company.banko.domain.FinancialAccount;
-import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.AccountDTO;
-import com.company.banko.service.impl.FinancialAccountServiceImpl;
+import com.company.banko.service.FinancialAccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/banko")
@@ -28,13 +28,20 @@ public class FinancialAccountController {
     private String applicationName;
 
     @GetMapping(path = "/account/getFinancialAccount")
-    public ResponseEntity <List<FinancialAccount>> getAllSavingsAccounts() {
+    public ResponseEntity <List<FinancialAccount>> getAllFinancialAccounts() {
         List<FinancialAccount> financialAccounts = financialAccountService.findAll();
         return new ResponseEntity<>(financialAccounts, HttpStatus.OK);
     }
 
+    @GetMapping("/account/getFinancialAccount/{id}")
+    public Optional<FinancialAccount> getFinancialAccount(@PathVariable Long id) {
+        Optional<FinancialAccount> financialAccount = financialAccountService.findOne(id);
+        return financialAccount;
+    }
+
+
     @PostMapping(path = "/account/createFinancialAccount")
-    public ResponseEntity<Object> createSavingsAccount(@Valid @RequestBody AccountDTO accountDTO) throws Exception {
+    public ResponseEntity<Object> createFinancialAccount(@Valid @RequestBody AccountDTO accountDTO) throws Exception {
         if (accountDTO.getId() == null) {
             throw new BadRequestAlertException("A new savingsAccount cannot already have an ID", ENTITY_NAME, "idexists");
         }
@@ -45,8 +52,8 @@ public class FinancialAccountController {
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping
-    public ResponseEntity<FinancialAccount> updateFinancialAccount(@Valid @RequestBody AccountDTO accountDTO) throws Exception {
+    @PutMapping(path = "/account/UpdateFinancialAccount")
+    public ResponseEntity<AccountDTO> updateFinancialAccount(@Valid @RequestBody AccountDTO accountDTO) throws Exception {
         if (accountDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -54,7 +61,7 @@ public class FinancialAccountController {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
         financialAccountService.update(accountDTO);
-        FinancialAccount result = financialAccountService.update(accountDTO);
+        AccountDTO result = financialAccountService.update(accountDTO);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accountDTO.getId().toString()))
                 .body(result);
@@ -62,7 +69,7 @@ public class FinancialAccountController {
 
 
     @DeleteMapping(path = "/account/deleteFinancialAccount/{id}")
-    public ResponseEntity<Void> deleteSavingsAccount(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteFinancialAccount(@PathVariable Long id) {
         financialAccountService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }

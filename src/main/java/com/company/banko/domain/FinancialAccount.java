@@ -20,11 +20,7 @@ import java.util.List;
 @SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "Financial_Account_sequence")
 @Table(name = "FinancialAccount", uniqueConstraints = {@UniqueConstraint(columnNames = {"accountNumber"}, name = "account_Number"),
         @UniqueConstraint(columnNames = {"creationDate"}, name = "creation_Date")})
-public class FinancialAccount implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence-generator")
-    public Long id;
+public class FinancialAccount extends AbstractPersistableCustom implements Serializable {
 
     @Column(name = "accountNumber", nullable = false)
     private Long accountNumber;
@@ -52,6 +48,10 @@ public class FinancialAccount implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "financialAccount", fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "financialAccount", fetch = FetchType.LAZY)
+    private List<Card> cards = new ArrayList<>();
+
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         transaction.setFinancialAccount(this);
@@ -63,5 +63,12 @@ public class FinancialAccount implements Serializable {
             //throw new SavingsAccountBlockedException(this.getId());
         }
     }
+
+    public void addCardTransaction(CardTransaction cardTransaction) {
+        cards.add(cardTransaction.getCard());
+        cardTransaction.getCard();
+    }
+
+
 
 }

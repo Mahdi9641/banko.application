@@ -1,18 +1,16 @@
 package com.company.banko.controller;
 
 import com.company.banko.config.HeaderUtil;
-import com.company.banko.domain.AccountTransferTransaction;
 import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.AccountTransactionDTO;
-import com.company.banko.service.impl.TransactionServiceImpl;
+import com.company.banko.service.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +36,7 @@ public class TransactionController {
 
 
     @GetMapping
-    public ResponseEntity <List<Transaction>> getAllSavingsAccountTransactions() {
+    public ResponseEntity <List<Transaction>> getAllSavingsTransactions() {
         List<Transaction> transactions = transactionService.findAll();
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
@@ -77,7 +75,7 @@ public class TransactionController {
 
 
     @DeleteMapping(path = "/account/deleteTransaction/{id}")
-    public ResponseEntity<Void> deleteSavingsAccount(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
         transactionService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }

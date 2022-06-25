@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.StringJoiner;
 
 @Getter
 @Setter
@@ -39,4 +40,16 @@ public class AccountTransferTransaction extends AbstractPersistableCustom implem
 
     @Column(name = "description", length = 100)
     private String description;
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", AccountTransferTransaction.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("fromSavingsTransaction=" + fromSavingsTransaction)
+                .add("toSavingsTransaction=" + toSavingsTransaction)
+                .add("date=" + date)
+                .add("amount=" + amount)
+                .add("description='" + description + "'")
+                .toString();
+    }
 }

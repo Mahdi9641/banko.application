@@ -18,10 +18,7 @@ public class AccountDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private long personId;
-
-    @NotNull
-    private String nationalNumber;
+    private String personNationalNumber;
 
     @NotNull
     private String description;
@@ -30,7 +27,7 @@ public class AccountDTO implements Serializable {
     private BigDecimal balance;
 
     @NotNull
-    private long accountNumber;
+    private Long accountNumber;
 
     @NotNull
     private Date creationDate;

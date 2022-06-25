@@ -31,6 +31,8 @@ public class PersonDTO implements Serializable {
     @NotNull
     private long age;
 
+    @NotNull
+    private Long officeId;
 
     @NotNull
     private String mobileNo;

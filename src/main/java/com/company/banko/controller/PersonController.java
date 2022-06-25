@@ -2,12 +2,11 @@ package com.company.banko.controller;
 
 
 import com.company.banko.config.HeaderUtil;
-import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Person;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.PersonDTO;
 import com.company.banko.repository.PersonRepository;
-import com.company.banko.service.impl.PersonServiceImpl;
+import com.company.banko.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
@@ -36,24 +36,30 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity <List<Person>> getAllClients() {
+    public ResponseEntity <List<Person>> getAllPersons() {
         List<Person> personList = personService.findAll();
         return new ResponseEntity<>(personList, HttpStatus.OK);
     }
 
+    @GetMapping("/person/getPerson/{id}")
+    public Optional<Person> getFinancialAccount(@PathVariable Long id) {
+        Optional<Person> person = personService.findOne(id);
+        return person;
+    }
+
     @PostMapping
-    public ResponseEntity<PersonDTO> createClient(@Valid @RequestBody PersonDTO personDTO) throws URISyntaxException {
+    public ResponseEntity<PersonDTO> createPerson(@Valid @RequestBody PersonDTO personDTO) throws URISyntaxException {
         if (personDTO.getId() == null) {
             throw new BadRequestAlertException("A new client cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PersonDTO result = personService.save(personDTO);
-        return ResponseEntity.created(new URI("/api/clients/" + result.getId()))
+        return ResponseEntity.created(new URI("/banko/Person-Request" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
 
     @PutMapping
-    public ResponseEntity<PersonDTO> updateClient(@Valid @RequestBody PersonDTO personDTO) throws URISyntaxException {
+    public ResponseEntity<PersonDTO> updatePerson(@Valid @RequestBody PersonDTO personDTO) throws URISyntaxException {
         if (personDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -67,7 +73,7 @@ public class PersonController {
     }
 
     @DeleteMapping(path = "{personId}")
-    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }

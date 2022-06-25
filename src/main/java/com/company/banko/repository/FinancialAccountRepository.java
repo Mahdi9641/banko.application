@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FinancialAccountRepository extends JpaRepository<FinancialAccount, Long> {
 
-    Long findByAccountNumber(Long accountNumber);
+    FinancialAccount findByAccountNumber(Long accountNumber);
 
 }

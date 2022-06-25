@@ -1,4 +1,4 @@
-package com.company.banko.service.impl;
+package com.company.banko.service;
 
 import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.domain.AccountTransactionType;

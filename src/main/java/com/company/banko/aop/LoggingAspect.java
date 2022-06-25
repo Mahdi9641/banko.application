@@ -1,6 +1,8 @@
 package com.company.banko.aop;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.slf4j.Log4jLogger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -12,7 +14,7 @@ import org.springframework.util.StopWatch;
 @Configuration
 public class LoggingAspect {
 
-    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(LoggingAspect.class);
+    private static final Logger log = LogManager.getLogger(LoggingAspect.class);
 
     @Before("@annotation(com.company.banko.CustomAnnotation.CustomLog)")
     public void logBeforeAllMethods(final JoinPoint retyrnValue) {
@@ -28,9 +30,10 @@ public class LoggingAspect {
 
     @AfterReturning(pointcut = "@annotation(com.company.banko.CustomAnnotation.CustomLog)", returning = "retVal")
     public void logAfterReturningGet(Object retVal) throws Throwable {
-        System.out.println("****LoggingAspect.logAfterReturning");
         if (retVal != null) {
-            System.out.println(((Object) retVal).toString());
+            System.out.println("****LoggingAspect.logAfterReturning: " + ((Object) retVal).toString());
+        } else {
+            System.out.println("not working");
         }
     }
 

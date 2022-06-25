@@ -3,7 +3,7 @@ package com.company.banko.controller;
 import com.company.banko.config.HeaderUtil;
 import com.company.banko.domain.AccountTransferTransaction;
 import com.company.banko.model.AccountTransferDTO;
-import com.company.banko.service.impl.TransferServiceImpl;
+import com.company.banko.service.TransferServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -31,13 +31,13 @@ public class TransferController {
 
 
     @GetMapping
-        public ResponseEntity<List<AccountTransferTransaction>> getAllSavingsAccountTransactions() {
+        public ResponseEntity<List<AccountTransferTransaction>> getAllTransfers() {
         List<AccountTransferTransaction> transactions = transferService.findAll();
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
     @PostMapping
-    private ResponseEntity<Object> createTransaction(@RequestBody AccountTransferDTO accountTransferDTO) throws Exception {
+    private ResponseEntity<Object> createTransfer(@RequestBody AccountTransferDTO accountTransferDTO) throws Exception {
         transferService.handletransferFunds(accountTransferDTO);
         Map<String, Object> map = new HashMap<>();
         map.put("TYPE", "DEPOSIT");
@@ -46,7 +46,7 @@ public class TransferController {
     }
 
     @DeleteMapping(path = "/account/deleteAccountTransferTransaction/{id}")
-    public ResponseEntity<Void> deleteSavingsAccount(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTransfer(@PathVariable Long id) {
         transferService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }

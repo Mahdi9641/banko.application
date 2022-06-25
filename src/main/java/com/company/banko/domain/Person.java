@@ -49,6 +49,10 @@ public class Person extends AbstractPersistableCustom implements Serializable {
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private Set<Transaction> transactions;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id")
+    private Office office;
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Person.class.getSimpleName() + "[", "]")
@@ -62,7 +66,8 @@ public class Person extends AbstractPersistableCustom implements Serializable {
                 .add("nationalNumber='" + nationalNumber + "'")
                 .add("birthDate=" + birthDate)
                 .add("financialAccounts=" + financialAccounts)
-                .add("transactions=" + transactions)
+                .add("transactions=" + transactions + "'")
+                .add("office='" + office)
                 .toString();
     }
 }

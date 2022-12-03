@@ -1,7 +1,6 @@
 package com.company.banko.model;
 
 import com.company.banko.CustomAnnotation.NationalNumberValidation;
-import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@ApiModel("PersonDTO")
+//@ApiModel("PersonDTO")
 public class PersonDTO implements Serializable {
 
     private Long id;
@@ -47,7 +46,6 @@ public class PersonDTO implements Serializable {
 
     @NotNull
     private Date birthDate;
-
 
 
 }

@@ -2,11 +2,9 @@ package com.company.banko.service;
 
 import com.company.banko.CustomAnnotation.CustomLog;
 import com.company.banko.controller.OfficeController;
-import com.company.banko.domain.FinancialAccount;
 import com.company.banko.domain.Office;
 import com.company.banko.model.OfficeDTO;
 import com.company.banko.repository.OfficeRepository;
-import io.swagger.annotations.Authorization;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +17,13 @@ import java.util.stream.Collectors;
 @Service
 public class OfficeService {
 
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(OfficeController.class);
     private final OfficeRepository officeRepository;
 
     @Autowired
     public OfficeService(OfficeRepository officeRepository) {
         this.officeRepository = officeRepository;
     }
-
-    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(OfficeController.class);
 
     @CustomLog
     public List<Office> findAll() {
@@ -42,7 +39,7 @@ public class OfficeService {
     }
 
     @CustomLog
-    public OfficeDTO save(OfficeDTO officeDTO){
+    public OfficeDTO save(OfficeDTO officeDTO) {
         Office office = new Office();
         office.setName(officeDTO.getName());
         office.setExternalId(officeDTO.getExternalId());
@@ -55,7 +52,7 @@ public class OfficeService {
     }
 
     @CustomLog
-    public OfficeDTO update(OfficeDTO officeDTO){
+    public OfficeDTO update(OfficeDTO officeDTO) {
 
         if (officeDTO == null) {
             return null;
@@ -80,7 +77,7 @@ public class OfficeService {
     }
 
     Office fromId(Long id) {
-        if (id == null){
+        if (id == null) {
             return null;
         }
         Office office = new Office();

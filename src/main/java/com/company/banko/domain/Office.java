@@ -1,6 +1,7 @@
 package com.company.banko.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,18 +35,8 @@ public class Office  extends AbstractPersistableCustom implements Serializable {
     private Set<Office> children = new HashSet<>();
 
    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+   @JoinColumn(name = "parent_id")
+   @JsonIgnore
     private Office parent;
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Office.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("name='" + name + "'")
-                .add("openingDate=" + openingDate)
-                .add("externalId='" + externalId + "'")
-                .add("children=" + children)
-                .add("parent=" + parent)
-                .toString();
-    }
 }

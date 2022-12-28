@@ -1,0 +1,38 @@
+2022-12-13 08:50:43,223 INFO o.h.v.i.u.Version                        [background-preinit] HV000001: Hibernate Validator 6.2.5.Final
+2022-12-13 08:50:43,305 INFO c.c.b.BankoApplicationTests              [main] Starting BankoApplicationTests using Java 11.0.16.1 on PC-Khodam with PID 11552 (started by m_khodam in E:\banko.application)
+2022-12-13 08:50:43,310 INFO c.c.b.BankoApplicationTests              [main] No active profile set, falling back to 1 default profile: "default"
+2022-12-13 08:50:44,115 INFO .s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-13 08:50:44,223 INFO .s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 97 ms. Found 9 JPA repository interfaces.
+2022-12-13 08:50:45,837 INFO o.h.j.i.u.LogHelper                      [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-13 08:50:45,916 INFO o.h.Version                              [main] HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-13 08:50:46,139 INFO o.h.a.c.Version                          [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-13 08:50:46,423 INFO c.z.h.HikariDataSource                   [main] HikariPool-1 - Starting...
+2022-12-13 08:50:46,767 INFO c.z.h.HikariDataSource                   [main] HikariPool-1 - Start completed.
+2022-12-13 08:50:46,816 INFO o.h.d.Dialect                            [main] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-12-13 08:50:47,018 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,035 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,041 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,043 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,049 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,051 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,055 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,058 WARN o.h.b.i.InFlightMetadataCollectorImpl    [main] HHH000069: Duplicate generator name sequence-generator
+2022-12-13 08:50:47,908 INFO o.h.e.t.j.p.i.JtaPlatformInitiator       [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-13 08:50:47,918 INFO j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-13 08:50:49,203 WARN JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-13 08:50:49,646 WARN o.s.s.c.a.w.b.WebSecurity                [main] You are asking Spring Security to ignore Ant [pattern='/h2-console/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-12-13 08:50:49,647 INFO o.s.s.w.DefaultSecurityFilterChain       [main] Will not secure Ant [pattern='/h2-console/**']
+2022-12-13 08:50:49,647 WARN o.s.s.c.a.w.b.WebSecurity                [main] You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-12-13 08:50:49,647 INFO o.s.s.w.DefaultSecurityFilterChain       [main] Will not secure Ant [pattern='/v3/api-docs/**']
+2022-12-13 08:50:49,647 WARN o.s.s.c.a.w.b.WebSecurity                [main] You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-12-13 08:50:49,647 INFO o.s.s.w.DefaultSecurityFilterChain       [main] Will not secure Ant [pattern='/swagger-ui/**']
+2022-12-13 08:50:49,647 WARN o.s.s.c.a.w.b.WebSecurity                [main] You are asking Spring Security to ignore Ant [pattern='/swagger-ui.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-12-13 08:50:49,647 INFO o.s.s.w.DefaultSecurityFilterChain       [main] Will not secure Ant [pattern='/swagger-ui.html']
+2022-12-13 08:50:49,647 WARN o.s.s.c.a.w.b.WebSecurity                [main] You are asking Spring Security to ignore Ant [pattern='/h2-console/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-12-13 08:50:49,647 INFO o.s.s.w.DefaultSecurityFilterChain       [main] Will not secure Ant [pattern='/h2-console/**']
+2022-12-13 08:50:49,874 INFO o.s.b.a.h.H2ConsoleAutoConfiguration     [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2022-12-13 08:50:50,866 INFO o.s.s.w.DefaultSecurityFilterChain       [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45bb502f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7aac6d13, org.springframework.security.web.context.SecurityContextPersistenceFilter@191cf38f, org.springframework.security.web.header.HeaderWriterFilter@6db84cae, org.springframework.web.filter.CorsFilter@7e34e466, org.springframework.security.web.csrf.CsrfFilter@279e4506, org.springframework.security.web.authentication.logout.LogoutFilter@6cb5a64d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@62525579, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67836d4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1cbb394b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a8eed58, org.springframework.security.web.session.SessionManagementFilter@611ffa8d, org.springframework.security.web.access.ExceptionTranslationFilter@5e08ed28, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7bfd8f92]
+2022-12-13 08:50:51,773 INFO c.c.b.BankoApplicationTests              [main] Started BankoApplicationTests in 9.214 seconds (JVM running for 10.969)
+2022-12-13 08:50:52,098 INFO j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-13 08:50:52,100 INFO c.z.h.HikariDataSource                   [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-12-13 08:50:52,104 INFO c.z.h.HikariDataSource                   [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

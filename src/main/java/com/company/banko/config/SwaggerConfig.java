@@ -1,33 +1,45 @@
 //package com.company.banko.config;
 //
+//import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import springfox.documentation.builders.ApiInfoBuilder;
-//import springfox.documentation.builders.PathSelectors;
-//import springfox.documentation.builders.RequestHandlerSelectors;
-//import springfox.documentation.service.ApiInfo;
-//import springfox.documentation.spi.DocumentationType;
-//import springfox.documentation.spring.web.plugins.Docket;
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import org.springframework.security.config.annotation.web.builders.WebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //
 //@Configuration
-//@EnableSwagger2
-//public class SwaggerConfig {
+//public class SwaggerConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+//
+//    @Value("${prop.swagger.enabled:false}")
+//    private boolean enableSwagger;
 //
 //    @Bean
-//    public Docket api() {
+//    public Docket SwaggerConfig() {
 //        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
+//                .enable(enableSwagger)
 //                .select()
-//                .apis(RequestHandlerSelectors.any())
+//                .apis(RequestHandlerSelectors.basePackage("com.your.controller"))
 //                .paths(PathSelectors.any())
 //                .build();
 //    }
 //
-//    private ApiInfo apiInfo() {
-//        return new ApiInfoBuilder().title("BANKING APPLICATION REST API")
-//                .description("API for Banking Application.")
-//                .version("1.0.0")
-//                .build();
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        if (enableSwagger)
+//            web.ignoring().antMatchers("/v2/api-docs",
+//                    "/configuration/ui",
+//                    "/swagger-resources/**",
+//                    "/configuration/security",
+//                    "/swagger-ui.html",
+//                    "/webjars/**");
+//    }
+//
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        if (enableSwagger) {
+//            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+//            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        }
 //    }
 //}

@@ -4,6 +4,7 @@ import com.company.banko.config.HeaderUtil;
 import com.company.banko.domain.AccountTransferTransaction;
 import com.company.banko.model.AccountTransferDTO;
 import com.company.banko.service.TransferServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
 @RequestMapping("/banko/Transfer")
+@SecurityRequirement(name = "basicAuth")
 public class TransferController {
 
     private final TransferServiceImpl transferService;

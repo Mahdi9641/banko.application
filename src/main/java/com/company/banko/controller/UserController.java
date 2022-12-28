@@ -4,6 +4,7 @@ import com.company.banko.domain.User;
 import com.company.banko.model.UserDTO;
 import com.company.banko.repository.UserRepository;
 import com.company.banko.service.IUserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/banko/user")
+@SecurityRequirement(name = "basicAuth")
 public class UserController {
 
 

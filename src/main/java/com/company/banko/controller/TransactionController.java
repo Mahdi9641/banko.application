@@ -5,6 +5,7 @@ import com.company.banko.domain.Transaction;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.AccountTransactionDTO;
 import com.company.banko.service.TransactionServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/banko/Transaction")
+@SecurityRequirement(name = "basicAuth")
 public class TransactionController {
 
     private static final String ENTITY_NAME = "Transaction";

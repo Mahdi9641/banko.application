@@ -11,7 +11,7 @@ import java.util.StringJoiner;
 @Setter
 @SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "User_sequence")
 @Entity
-@Table(name = "app_user")
+@Table(name = "user_app1")
 public class User extends AbstractPersistableCustom implements Serializable {
 
 

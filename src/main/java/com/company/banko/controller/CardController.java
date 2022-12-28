@@ -8,6 +8,9 @@ import com.company.banko.model.CardDTO;
 import com.company.banko.model.PersonDTO;
 import com.company.banko.repository.CardRepository;
 import com.company.banko.service.CardService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,9 +24,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
-
 @RestController
 @RequestMapping("/banko/card")
+@SecurityRequirement(name = "basicAuth")
 public class CardController {
 
     private final CardService cardService;
@@ -42,9 +45,9 @@ public class CardController {
         List<Card> cards = cardService.findAll();
         return new ResponseEntity<>(cards, HttpStatus.OK);
     }
-
+    @Operation(summary = "Get a card by its id")
     @GetMapping("/getCard/{id}")
-    public Optional<Card> getCard(@PathVariable Long id) {
+    public Optional<Card> getCard(@Parameter(description = "id of card to be searched") @PathVariable Long id) {
         Optional<Card> card = cardService.findOne(id);
         return card;
     }

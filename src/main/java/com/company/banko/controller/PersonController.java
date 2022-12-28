@@ -7,6 +7,7 @@ import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.PersonDTO;
 import com.company.banko.repository.PersonRepository;
 import com.company.banko.service.PersonServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
 @RequestMapping("/banko/Person-Request")
+@SecurityRequirement(name = "basicAuth")
 public class PersonController {
 
     private final PersonServiceImpl personService;
@@ -42,7 +44,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/getPerson/{id}")
-    public Optional<Person> getFinancialAccount(@PathVariable Long id) {
+    public Optional<Person> getPerson(@PathVariable Long id) {
         Optional<Person> person = personService.findOne(id);
         return person;
     }

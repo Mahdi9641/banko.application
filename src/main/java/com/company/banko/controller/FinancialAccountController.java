@@ -5,6 +5,7 @@ import com.company.banko.domain.FinancialAccount;
 import com.company.banko.exeptions.BadRequestAlertException;
 import com.company.banko.model.AccountDTO;
 import com.company.banko.service.FinancialAccountServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/banko")
+@SecurityRequirement(name = "basicAuth")
 public class FinancialAccountController {
 
     private static final String ENTITY_NAME = "financialAccount";

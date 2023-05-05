@@ -47,13 +47,13 @@ public class CardTransactionService {
 
     @Transactional
     @CustomLog
-    public CardTransaction handleDeposit(Long savingsId, CardTransactionDTO cardTransactionDTO) {
+    public CardTransaction handleDeposit(String cardNumber, CardTransactionDTO cardTransactionDTO) {
 
-        if (!cardRepository.existsById(savingsId)) {
-            throw new SavingsAccountNotFoundException("Card not found", savingsId.toString(), "idnotfound");
+        if (!cardRepository.existsByCardNumber(cardNumber)) {
+            throw new SavingsAccountNotFoundException("Card not found", cardNumber, "idnotfound");
         }
         CardTransaction cardTransaction;
-        Optional<Card> card = cardRepository.findById(savingsId);
+        Optional<Card> card = cardRepository.findCard(cardNumber);
         if (card.isPresent()) {
             Card card1 = card.get();
             validateForAccountBlock(card1.getFinancialAccount());
@@ -73,7 +73,7 @@ public class CardTransactionService {
 
 
         } else {
-            throw new SavingsAccountNotFoundException("Savings account not found", savingsId.toString(), "accountnotfound");
+            throw new SavingsAccountNotFoundException("Savings account not found", cardNumber, "accountnotfound");
         }
         return cardTransaction;
     }
@@ -81,13 +81,13 @@ public class CardTransactionService {
 
     @Transactional
     @CustomLog
-    public CardTransaction handleWithdraw(Long savingsId, CardTransactionDTO cardTransactionDTO) {
+    public CardTransaction handleWithdraw(String cardNumber, CardTransactionDTO cardTransactionDTO) {
 
-        if (!cardRepository.existsById(savingsId)) {
-            throw new SavingsAccountNotFoundException("Card not found", savingsId.toString(), "idnotfound");
+        if (!cardRepository.existsByCardNumber(cardNumber)) {
+            throw new SavingsAccountNotFoundException("Card not found", cardNumber, "idnotfound");
         }
         CardTransaction cardTransaction;
-        Optional<Card> card = cardRepository.findById(savingsId);
+        Optional<Card> card = Optional.ofNullable(cardRepository.findByCardNumber(cardNumber));
         if (card.isPresent()) {
             Card card1 = card.get();
             validateForAccountBlock(card1.getFinancialAccount());
@@ -107,7 +107,7 @@ public class CardTransactionService {
 
 
         } else {
-            throw new SavingsAccountNotFoundException("Savings account not found", savingsId.toString(), "accountnotfound");
+            throw new SavingsAccountNotFoundException("Savings account not found", cardNumber, "accountnotfound");
         }
         return cardTransaction;
     }

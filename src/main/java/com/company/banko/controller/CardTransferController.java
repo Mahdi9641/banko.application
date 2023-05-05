@@ -44,7 +44,7 @@ public class CardTransferController {
         cardTransferTransactionService.handletransferFunds(cardTransferDTO);
         Map<String, Object> map = new HashMap<>();
         map.put("TYPE", "DEPOSIT");
-        map.put("RESULT", " The amount was deposit of  " + cardTransferDTO.getTransactionAmount() +"  from Card ID  " + cardTransferDTO.getFromCardId() +  "  to Card ID  " + cardTransferDTO.getToCardId());
+        map.put("RESULT", " The amount was deposit of  " + cardTransferDTO.getTransactionAmount() +"  from Card Number  " + cardTransferDTO.getFromCardNumber() +  "  to Card Number  " + cardTransferDTO.getToCardNumber());
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 

@@ -54,14 +54,14 @@ public class CardTransferTransactionService {
         fromCardTransactionDTO.setAmount(cardTransferDTO.getTransactionAmount());
         fromCardTransactionDTO.setDateOf(cardTransferDTO.getTransactionDate());
         fromCardTransactionDTO.setDescription(cardTransferDTO.getDescription());
-        CardTransaction fromCardAccount = cardTransactionService.handleWithdraw(cardTransferDTO.getFromCardId(), fromCardTransactionDTO);
+        CardTransaction fromCardAccount = cardTransactionService.handleWithdraw(cardTransferDTO.getFromCardNumber(), fromCardTransactionDTO);
 
         CardTransactionDTO toCardTransactionDTO = new CardTransactionDTO();
         toCardTransactionDTO.setTransactionType(AccountTransactionType.DEPOSIT);
         toCardTransactionDTO.setAmount(cardTransferDTO.getTransactionAmount());
         toCardTransactionDTO.setDateOf(cardTransferDTO.getTransactionDate());
         toCardTransactionDTO.setDescription(cardTransferDTO.getDescription());
-        CardTransaction toCardAccount = cardTransactionService.handleDeposit(cardTransferDTO.getToCardId(), toCardTransactionDTO);
+        CardTransaction toCardAccount = cardTransactionService.handleDeposit(cardTransferDTO.getToCardNumber(), toCardTransactionDTO);
 
 
         CardTransferTransaction cardTransferTransaction = new CardTransferTransaction();

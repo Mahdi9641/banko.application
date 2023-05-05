@@ -18,10 +18,10 @@ public class CardTransferDTO {
     private BigDecimal transactionAmount;
 
     @NotNull
-    private Long fromCardId;
+    private String fromCardNumber;
 
     @NotNull
-    private Long toCardId;
+    private String toCardNumber;
 
     @NotNull
     private String description;
